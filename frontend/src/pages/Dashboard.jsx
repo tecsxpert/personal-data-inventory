@@ -10,7 +10,7 @@ const Dashboard = () => {
       setData([
         { id: 1, name: "Google", type: "Website", status: "Active" },
         { id: 2, name: "Facebook", type: "Social", status: "Inactive" },
-        { id: 3, name: "Amazon", type: "E-commerce", status: "Active" },
+        { id: 3, name: "Microsoft", type: "web", status: "Active" },
       ]);
       setLoading(false);
     }, 1000);
