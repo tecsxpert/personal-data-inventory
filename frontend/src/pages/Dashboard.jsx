@@ -5,12 +5,26 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // simulate API delay
     setTimeout(() => {
       setData([
-        { id: 1, name: "Google", type: "Website", status: "Active" },
-        { id: 2, name: "Facebook", type: "Social", status: "Inactive" },
-        { id: 3, name: "Microsoft", type: "web", status: "Active" },
+        {
+          id: 1,
+          name: "Google",
+          description: "Search engine",
+          category: "Technology",
+        },
+        {
+          id: 2,
+          name: "Facebook",
+          description: "Social media platform",
+          category: "Social",
+        },
+        {
+          id: 3,
+          name: "Microsoft",
+          description: "Software company",
+          category: "Technology",
+        },
       ]);
       setLoading(false);
     }, 1000);
@@ -29,29 +43,29 @@ const Dashboard = () => {
           <tr>
             <th className="border p-2">ID</th>
             <th className="border p-2">Name</th>
-            <th className="border p-2">Type</th>
-            <th className="border p-2">Status</th>
+            <th className="border p-2">Description</th>
+            <th className="border p-2">Category</th>
           </tr>
         </thead>
 
         <tbody>
-            {data.length === 0 ? (
+          {data.length === 0 ? (
             <tr>
-                <td colSpan="4" className="text-center p-4">
-                    No data available
-                </td>
+              <td colSpan="4" className="text-center p-4">
+                No data available
+              </td>
             </tr>
-            ) : (
-                data.map((item) => (
-                    <tr key={item.id}>
-                        <td className="border p-2">{item.id}</td>
-                        <td className="border p-2">{item.name}</td>
-                        <td className="border p-2">{item.type}</td>
-                     <td className="border p-2">{item.status}</td>
-                    </tr>
-                    ))
-            )}
-        </tbody>   
+          ) : (
+            data.map((item) => (
+              <tr key={item.id}>
+                <td className="border p-2">{item.id}</td>
+                <td className="border p-2">{item.name}</td>
+                <td className="border p-2">{item.description}</td>
+                <td className="border p-2">{item.category}</td>
+              </tr>
+            ))
+          )}
+        </tbody>
       </table>
     </div>
   );

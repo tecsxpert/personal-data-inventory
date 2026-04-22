@@ -1,7 +1,7 @@
-import Dashboard from "./pages/Dashboard";
+import CreateForm from "./pages/CreateForm";
 
 function App() {
-  return <Dashboard />;
+  return <CreateForm />;
 }
 
 export default App;
