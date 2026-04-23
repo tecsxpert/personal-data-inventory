@@ -1,11 +1,30 @@
 import { useEffect, useState } from "react";
+import api from "../services/api";
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(0);
+  const [sortBy, setSortBy] = useState("name");
+  const [order, setOrder] = useState("asc");
 
-  useEffect(() => {
-    setTimeout(() => {
+useEffect(() => {
+  setLoading(true);
+
+  api
+    .get(`/api/data-items?page=${page}&size=5&sort=${sortBy},${order}`)
+    .then((res) => {
+      if (Array.isArray(res.data)) {
+        setData(res.data); // fallback if pagination not implemented in backend
+      } else {
+        setData(res.data.content); // Spring Page format
+      }
+
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error("API failed, using dummy data");
+
       setData([
         {
           id: 1,
@@ -13,22 +32,11 @@ const Dashboard = () => {
           description: "Search engine",
           category: "Technology",
         },
-        {
-          id: 2,
-          name: "Facebook",
-          description: "Social media platform",
-          category: "Social",
-        },
-        {
-          id: 3,
-          name: "Microsoft",
-          description: "Software company",
-          category: "Technology",
-        },
       ]);
+
       setLoading(false);
-    }, 1000);
-  }, []);
+    });
+}, [page, sortBy, order]);
 
   if (loading) {
     return <div className="p-6">Loading...</div>;
@@ -42,9 +50,28 @@ const Dashboard = () => {
         <thead className="bg-gray-200">
           <tr>
             <th className="border p-2">ID</th>
-            <th className="border p-2">Name</th>
+
+            <th
+            className="border p-2 cursor-pointer"
+            onClick={() => {
+            setSortBy("name");
+            setOrder(order === "asc" ? "desc" : "asc");
+             }}
+            >       
+            Name {sortBy === "name" ? (order === "asc" ? "↑" : "↓") : ""}
+            </th>
+
             <th className="border p-2">Description</th>
-            <th className="border p-2">Category</th>
+
+            <th
+            className="border p-2 cursor-pointer"
+            onClick={() => {
+            setSortBy("category");
+            setOrder(order === "asc" ? "desc" : "asc");
+            }}
+            >
+            Category {sortBy === "category" ? (order === "asc" ? "↑" : "↓") : ""}
+            </th>
           </tr>
         </thead>
 
@@ -67,6 +94,21 @@ const Dashboard = () => {
           )}
         </tbody>
       </table>
+      <div className="mt-4 flex gap-2">
+        <button
+          onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
+          className="bg-gray-300 px-3 py-1 rounded"
+        >
+        Prev
+        </button>
+
+        <button
+          onClick={() => setPage((prev) => prev + 1)}
+          className="bg-gray-300 px-3 py-1 rounded"
+        >
+        Next
+        </button>
+      </div>
     </div>
   );
 };
