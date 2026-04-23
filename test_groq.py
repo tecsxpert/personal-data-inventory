@@ -8,8 +8,8 @@ response = client.generate_response(user_input)
 
 print("\n=== AI Response ===\n")
 
-# Pretty print JSON nicely
+# Pretty print JSON properly (₹ symbol fix)
 if isinstance(response, dict):
-    print(json.dumps(response, indent=4))
+    print(json.dumps(response, indent=4, ensure_ascii=False))
 else:
     print(response)

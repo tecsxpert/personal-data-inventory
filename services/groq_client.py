@@ -28,11 +28,14 @@ class GroqClient:
                         {
                             "role": "user",
                             "content": f"""
-Create a travel plan in JSON format.
+You are a JSON generator.
 
 User request: {prompt}
 
-Return ONLY JSON like this:
+Return ONLY valid JSON.
+Do NOT include explanations, notes, markdown, or extra text.
+
+Format:
 {{
     "destination": "",
     "days": "",
@@ -52,15 +55,19 @@ Return ONLY JSON like this:
 
                 content = response.choices[0].message.content.strip()
 
-                # 🔥 Remove markdown formatting if present
+                # 🔥 Remove markdown if present
                 if content.startswith("```"):
                     content = content.replace("```json", "").replace("```", "").strip()
+
+                # 🔥 Keep only JSON part (remove extra text after last })
+                if "}" in content:
+                    content = content[:content.rfind("}") + 1]
 
                 # ✅ Parse JSON
                 try:
                     return json.loads(content)
                 except json.JSONDecodeError:
-                    return content
+                    return {"error": "Invalid JSON response", "raw": content}
 
             except Exception as e:
                 logging.error(f"Error on attempt {attempt + 1}: {e}")
