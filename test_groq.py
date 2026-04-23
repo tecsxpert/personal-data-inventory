@@ -1,23 +1,15 @@
-import os
-from groq import Groq
-from dotenv import load_dotenv
+from services.groq_client import GroqClient
+import json
 
-# Load environment variables from .env file
-load_dotenv()
+client = GroqClient()
 
-# Get API key from .env
-api_key = os.getenv("GROQ_API_KEY")
+user_input = input("Ask something: ")
+response = client.generate_response(user_input)
 
-# Create Groq client
-client = Groq(api_key=api_key)
+print("\n=== AI Response ===\n")
 
-# Make a test API call
-response = client.chat.completions.create(
-    model="llama-3.1-8b-instant",
-    messages=[
-        {"role": "user", "content": "tell me about google"}
-    ]
-)
-
-# Print the response
-print(response.choices[0].message.content)
+# Pretty print JSON nicely
+if isinstance(response, dict):
+    print(json.dumps(response, indent=4))
+else:
+    print(response)
