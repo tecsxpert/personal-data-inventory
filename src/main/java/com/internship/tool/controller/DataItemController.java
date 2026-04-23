@@ -2,6 +2,8 @@ package com.internship.tool.controller;
 
 import com.internship.tool.entity.DataItem;
 import com.internship.tool.service.DataItemService;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,28 +18,35 @@ public class DataItemController {
         this.service = service;
     }
 
+    // CREATE
     @PostMapping
-    public DataItem create(@RequestBody DataItem item) {
-        return service.create(item);
+    public ResponseEntity<DataItem> create(@Valid @RequestBody DataItem item) {
+        return ResponseEntity.ok(service.create(item));
     }
 
+    // GET ALL
     @GetMapping
-    public List<DataItem> getAll() {
-        return service.getAll();
+    public ResponseEntity<List<DataItem>> getAll() {
+        return ResponseEntity.ok(service.getAll());
     }
 
+    // GET BY ID
     @GetMapping("/{id}")
-    public DataItem getById(@PathVariable Long id) {
-        return service.getById(id);
+    public ResponseEntity<DataItem> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getById(id));
     }
 
+    // UPDATE
     @PutMapping("/{id}")
-    public DataItem update(@PathVariable Long id, @RequestBody DataItem item) {
-        return service.update(id, item);
+    public ResponseEntity<DataItem> update(@PathVariable Long id,
+                                           @Valid @RequestBody DataItem item) {
+        return ResponseEntity.ok(service.update(id, item));
     }
 
+    // DELETE
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<String> delete(@PathVariable Long id) {
         service.delete(id);
+        return ResponseEntity.ok("Deleted successfully");
     }
 }

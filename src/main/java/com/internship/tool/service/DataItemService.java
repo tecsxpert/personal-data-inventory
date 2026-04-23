@@ -1,6 +1,7 @@
 package com.internship.tool.service;
 
 import com.internship.tool.entity.DataItem;
+import com.internship.tool.exception.ResourceNotFoundException;
 import com.internship.tool.repository.DataItemRepository;
 import org.springframework.stereotype.Service;
 
@@ -27,23 +28,30 @@ public class DataItemService {
 
     // GET BY ID
     public DataItem getById(Long id) {
-        return repository.findById(id).orElse(null);
+        return repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Data not found with id: " + id));
     }
 
     // UPDATE
     public DataItem update(Long id, DataItem item) {
-        DataItem existing = repository.findById(id).orElse(null);
-        if (existing != null) {
-            existing.setName(item.getName());
-            existing.setDescription(item.getDescription());
-            existing.setCategory(item.getCategory());
-            return repository.save(existing);
-        }
-        return null;
+        DataItem existing = repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Data not found with id: " + id));
+
+        existing.setName(item.getName());
+        existing.setDescription(item.getDescription());
+        existing.setCategory(item.getCategory());
+
+        return repository.save(existing);
     }
 
     // DELETE
     public void delete(Long id) {
-        repository.deleteById(id);
+        DataItem existing = repository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Data not found with id: " + id));
+
+        repository.delete(existing);
     }
 }
