@@ -1,11 +1,14 @@
+import { useState } from "react";
 import Dashboard from "./pages/Dashboard";
-import ProtectedRoute from "./components/ProtectedRoute";
+import CreateForm from "./pages/CreateForm";
 
 function App() {
-  return (
-    <ProtectedRoute>
-      <Dashboard />
-    </ProtectedRoute>
+  const [editingItem, setEditingItem] = useState(null);
+
+  return editingItem ? (
+    <CreateForm item={editingItem} setEditingItem={setEditingItem} />
+  ) : (
+    <Dashboard setEditingItem={setEditingItem} />
   );
 }
 
