@@ -1,9 +1,12 @@
-import CreateForm from "./pages/CreateForm";
 import Dashboard from "./pages/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
-  // return <CreateForm />;
-  return <Dashboard/>
+  return (
+    <ProtectedRoute>
+      <Dashboard />
+    </ProtectedRoute>
+  );
 }
 
 export default App;
