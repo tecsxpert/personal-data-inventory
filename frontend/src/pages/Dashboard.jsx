@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 
-const Dashboard = ({ setEditingItem }) => {
+const Dashboard = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
   const [sortBy, setSortBy] = useState("name");
   const [order, setOrder] = useState("asc");
 
-const handleEdit = (item) => {
-  setEditingItem(item);
-};
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
@@ -57,52 +56,59 @@ const handleEdit = (item) => {
             <th
               className="border p-2 cursor-pointer"
               onClick={() => {
-              setSortBy("name");
-              setOrder(order === "asc" ? "desc" : "asc");
+                setSortBy("name");
+                setOrder(order === "asc" ? "desc" : "asc");
               }}
             >
-            Name {sortBy === "name" ? (order === "asc" ? "↑" : "↓") : ""}
+              Name {sortBy === "name" ? (order === "asc" ? "↑" : "↓") : ""}
             </th>
             <th className="border p-2">Description</th>
             <th
-            className="border p-2 cursor-pointer"
-            onClick={() => {
-            setSortBy("category");
-            setOrder(order === "asc" ? "desc" : "asc");
-            }}
+              className="border p-2 cursor-pointer"
+              onClick={() => {
+                setSortBy("category");
+                setOrder(order === "asc" ? "desc" : "asc");
+              }}
             >
-            Category {sortBy === "category" ? (order === "asc" ? "↑" : "↓") : ""}
+              Category {sortBy === "category" ? (order === "asc" ? "↑" : "↓") : ""}
             </th>
             <th className="border p-2">Actions</th>
           </tr>
         </thead>
 
-<tbody>
-  {data.length === 0 ? (
-    <tr>
-      <td colSpan="5" className="text-center p-4">
-        No data available
-      </td>
-    </tr>
-  ) : (
-    data.map((item) => (
-      <tr key={item.id}>
-        <td className="border p-2">{item.id}</td>
-        <td className="border p-2">{item.name}</td>
-        <td className="border p-2">{item.description}</td>
-        <td className="border p-2">{item.category}</td>
-        <td className="border p-2">
-          <button
-            onClick={() => handleEdit(item)}
-          className="bg-yellow-400 px-2 py-1 rounded hover:bg-yellow-500"
-          >
-           Edit
-          </button>
-        </td>
-      </tr>
-    ))
-  )}
-</tbody>
+        <tbody>
+          {data.length === 0 ? (
+            <tr>
+              <td colSpan="5" className="text-center p-4">
+                No data available
+              </td>
+            </tr>
+          ) : (
+            data.map((item) => (
+              <tr
+                key={item.id}
+                onClick={() => navigate(`/detail/${item.id}`)}
+                className="cursor-pointer hover:bg-gray-100"
+              >
+                <td className="border p-2">{item.id}</td>
+                <td className="border p-2">{item.name}</td>
+                <td className="border p-2">{item.description}</td>
+                <td className="border p-2">{item.category}</td>
+                <td className="border p-2">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/edit/${item.id}`);
+                    }}
+                    className="bg-yellow-400 px-2 py-1 rounded hover:bg-yellow-500"
+                  >
+                    Edit
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
+        </tbody>
       </table>
 
       <div className="mt-4 flex gap-2">

@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import CreateForm from "./pages/CreateForm";
+import Detail from "./pages/Detail";
 
 function App() {
-  const [editingItem, setEditingItem] = useState(null);
-
-  return editingItem ? (
-    <CreateForm item={editingItem} setEditingItem={setEditingItem} />
-  ) : (
-    <Dashboard setEditingItem={setEditingItem} />
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/create" element={<CreateForm />} />
+        <Route path="/edit/:id" element={<CreateForm />} />
+        <Route path="/detail/:id" element={<Detail />} />
+      </Routes>
+    </Router>
   );
 }
 
