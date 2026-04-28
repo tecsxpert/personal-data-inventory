@@ -8,38 +8,47 @@ const Dashboard = () => {
   const [page, setPage] = useState(0);
   const [sortBy, setSortBy] = useState("name");
   const [order, setOrder] = useState("asc");
+  const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [status, setStatus] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    setLoading(true);
+useEffect(() => {
+  setLoading(true);
 
-    api
-      .get(`/api/data-items?page=${page}&size=5&sort=${sortBy},${order}`)
-      .then((res) => {
-        if (Array.isArray(res.data)) {
-          setData(res.data);
-        } else {
-          setData(res.data.content);
-        }
+  if (debouncedSearch.trim() !== "") {
+    console.log("Searching:", debouncedSearch);
+  }
 
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("API failed, using dummy data");
+  api
+    .get(`/api/data-items?page=${page}&size=5&sort=${sortBy},${order}&search=${debouncedSearch}&status=${status}`)
+    .then((res) => {
+      if (Array.isArray(res.data)) {
+        setData(res.data);
+      } else {
+        setData(res.data.content);
+      }
 
-        setData([
-          {
-            id: 1,
-            name: "Google",
-            description: "Search engine",
-            category: "Technology",
-          },
-        ]);
+      setLoading(false);
+    })
+    .catch(() => {
+      console.error("API failed, using dummy data");
 
-        setLoading(false);
-      });
-  }, [page, sortBy, order]);
+      setData([
+        {
+          id: 1,
+          name: "Google",
+          description: "Search engine",
+          category: "Technology",
+        },
+      ]);
+
+      setLoading(false);
+    });
+}, [page, sortBy, order, debouncedSearch, status]);
 
   if (loading) {
     return <div className="p-6">Loading...</div>;
@@ -48,6 +57,44 @@ const Dashboard = () => {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">List Page</h1>
+
+    <div className="mb-4">
+      <input
+        type="text"
+        placeholder="Search..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="border px-3 py-1 rounded w-full"
+      />
+    </div>
+
+    <div className="mb-4">
+      <select
+        value={status}
+        onChange={(e) => setStatus(e.target.value)}
+        className="border px-3 py-1 rounded w-full"
+      >
+        <option value="">All Status</option>
+        <option value="ACTIVE">ACTIVE</option>
+        <option value="INACTIVE">INACTIVE</option>
+      </select>
+    </div>
+
+    <div className="mb-4 flex gap-2">
+      <input
+        type="date"
+        value={startDate}
+        onChange={(e) => setStartDate(e.target.value)}
+        className="border px-3 py-1 rounded w-full"
+      />
+
+      <input
+        type="date"
+        value={endDate}
+        onChange={(e) => setEndDate(e.target.value)}
+        className="border px-3 py-1 rounded w-full"
+      />
+    </div>
 
       <table className="w-full border border-gray-300">
         <thead className="bg-gray-200">
