@@ -54,6 +54,37 @@ useEffect(() => {
     return <div className="p-6">Loading...</div>;
   }
 
+const handleExport = () => {
+  if (data.length === 0) return;
+
+  const headers = ["ID", "Name", "Description", "Category"];
+
+  const rows = data.map((item) => [
+    item.id,
+    item.name,
+    item.description,
+    item.category,
+  ]);
+
+  const csvContent =
+    headers.join(",") +
+    "\n" +
+    rows.map((row) => row.join(",")).join("\n");
+
+  const blob = new Blob([csvContent], {
+    type: "text/csv;charset=utf-8;",
+  });
+
+  const url = window.URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.setAttribute("download", "data.csv");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">List Page</h1>
@@ -95,6 +126,21 @@ useEffect(() => {
         className="border px-3 py-1 rounded w-full"
       />
     </div>
+
+    <button
+      onClick={handleExport}
+      className="mb-4 bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+    >
+    Export CSV
+    </button>
+
+
+    <button
+      onClick={() => navigate("/analytics")}
+      className="mb-4 ml-2 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+    >
+      Go to Analytics
+    </button>
 
       <table className="w-full border border-gray-300">
         <thead className="bg-gray-200">
