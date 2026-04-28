@@ -21,6 +21,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         this.jwtUtil = jwtUtil;
     }
 
+    // ✅ VERY IMPORTANT → skip login endpoint
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        return request.getServletPath().startsWith("/api/auth");
+    }
+
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
@@ -44,7 +50,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                 Collections.emptyList()
                         );
 
-                // 🔥 CRITICAL LINE (this solves 403)
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
         }

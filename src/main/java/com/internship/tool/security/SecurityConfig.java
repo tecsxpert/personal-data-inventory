@@ -20,14 +20,18 @@ public class SecurityConfig {
 
         http
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        // ✅ allow login API
-                        .requestMatchers("/api/auth/**").permitAll()
 
-                        // 🔒 protect everything else
+                // ❌ DISABLE DEFAULT SECURITY
+                .httpBasic(httpBasic -> httpBasic.disable())
+                .formLogin(form -> form.disable())
+
+                // ✅ AUTH RULES
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                // ✅ add JWT filter
+
+                // ✅ ADD JWT FILTER
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

@@ -1,5 +1,7 @@
 package com.internship.tool.service;
 
+import com.internship.tool.dto.DataItemRequest;
+import com.internship.tool.dto.DataItemResponse;
 import com.internship.tool.entity.DataItem;
 import com.internship.tool.exception.ResourceNotFoundException;
 import com.internship.tool.repository.DataItemRepository;
@@ -8,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DataItemService {
@@ -18,39 +21,75 @@ public class DataItemService {
         this.repository = repository;
     }
 
-    public DataItem create(DataItem item) {
-        return repository.save(item);
+    // CREATE
+    public DataItemResponse create(DataItemRequest request) {
+        DataItem item = new DataItem();
+        item.setName(request.getName());
+        item.setDescription(request.getDescription());
+        item.setCategory(request.getCategory());
+
+        return mapToResponse(repository.save(item));
     }
 
-    public List<DataItem> getAll() {
-        return repository.findAll();
+    // GET ALL
+    public List<DataItemResponse> getAll() {
+        return repository.findAll()
+                .stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
     }
 
-    public DataItem getById(Long id) {
-        return repository.findById(id)
+    // GET BY ID
+    public DataItemResponse getById(Long id) {
+        DataItem item = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Data not found with id: " + id));
+
+        return mapToResponse(item);
     }
 
-    public DataItem update(Long id, DataItem item) {
-        DataItem existing = getById(id);
+    // UPDATE
+    public DataItemResponse update(Long id, DataItemRequest request) {
+        DataItem item = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Data not found with id: " + id));
 
-        existing.setName(item.getName());
-        existing.setDescription(item.getDescription());
-        existing.setCategory(item.getCategory());
+        item.setName(request.getName());
+        item.setDescription(request.getDescription());
+        item.setCategory(request.getCategory());
 
-        return repository.save(existing);
+        return mapToResponse(repository.save(item));
     }
 
+    // DELETE
     public void delete(Long id) {
-        DataItem existing = getById(id);
-        repository.delete(existing);
+        DataItem item = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Data not found with id: " + id));
+
+        repository.delete(item);
     }
 
-    public Page<DataItem> getAllWithPagination(Pageable pageable) {
-        return repository.findAll(pageable);
+    // PAGINATION
+    public Page<DataItemResponse> getAllWithPagination(Pageable pageable) {
+        return repository.findAll(pageable)
+                .map(this::mapToResponse);
     }
 
-    public List<DataItem> searchByName(String name) {
-        return repository.findByNameContainingIgnoreCase(name);
+    // SEARCH
+    public List<DataItemResponse> searchByName(String name) {
+        return repository.findByNameContainingIgnoreCase(name)
+                .stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
+    }
+
+    // MAPPER
+    private DataItemResponse mapToResponse(DataItem item) {
+        return new DataItemResponse(
+                item.getId(),
+                item.getName(),
+                item.getDescription(),
+                item.getCategory(),
+                item.getCreatedAt(),
+                item.getUpdatedAt()
+        );
     }
 }

@@ -1,6 +1,7 @@
 package com.internship.tool.controller;
 
-import com.internship.tool.entity.DataItem;
+import com.internship.tool.dto.DataItemRequest;
+import com.internship.tool.dto.DataItemResponse;
 import com.internship.tool.service.DataItemService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -22,27 +23,27 @@ public class DataItemController {
 
     // 🔹 CREATE
     @PostMapping
-    public ResponseEntity<DataItem> create(@Valid @RequestBody DataItem item) {
-        return ResponseEntity.ok(service.create(item));
+    public ResponseEntity<DataItemResponse> create(@Valid @RequestBody DataItemRequest request) {
+        return ResponseEntity.ok(service.create(request));
     }
 
     // 🔹 GET ALL
     @GetMapping
-    public ResponseEntity<List<DataItem>> getAll() {
+    public ResponseEntity<List<DataItemResponse>> getAll() {
         return ResponseEntity.ok(service.getAll());
     }
 
     // 🔹 GET BY ID
     @GetMapping("/{id}")
-    public ResponseEntity<DataItem> getById(@PathVariable Long id) {
+    public ResponseEntity<DataItemResponse> getById(@PathVariable Long id) {
         return ResponseEntity.ok(service.getById(id));
     }
 
     // 🔹 UPDATE
     @PutMapping("/{id}")
-    public ResponseEntity<DataItem> update(@PathVariable Long id,
-                                           @Valid @RequestBody DataItem item) {
-        return ResponseEntity.ok(service.update(id, item));
+    public ResponseEntity<DataItemResponse> update(@PathVariable Long id,
+                                                   @Valid @RequestBody DataItemRequest request) {
+        return ResponseEntity.ok(service.update(id, request));
     }
 
     // 🔹 DELETE
@@ -54,13 +55,13 @@ public class DataItemController {
 
     // 🔹 PAGINATION
     @GetMapping("/page")
-    public ResponseEntity<Page<DataItem>> getAllWithPagination(Pageable pageable) {
+    public ResponseEntity<Page<DataItemResponse>> getAllWithPagination(Pageable pageable) {
         return ResponseEntity.ok(service.getAllWithPagination(pageable));
     }
 
     // 🔹 SEARCH
     @GetMapping("/search")
-    public ResponseEntity<List<DataItem>> search(@RequestParam String name) {
+    public ResponseEntity<List<DataItemResponse>> search(@RequestParam String name) {
         return ResponseEntity.ok(service.searchByName(name));
     }
 }
