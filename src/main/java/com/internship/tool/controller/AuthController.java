@@ -21,9 +21,13 @@ public class AuthController {
         String username = request.get("username");
         String password = request.get("password");
 
-        // simple check (for now)
+        // ✅ TEMP LOGIN (as per Day 5 basic auth setup)
         if ("admin".equals(username) && "admin123".equals(password)) {
-            String token = jwtUtil.generateToken(username);
+
+            String role = "ADMIN"; // ✅ ADD ROLE
+
+            String token = jwtUtil.generateToken(username, role); // ✅ FIXED
+
             return Map.of("token", token);
         }
 

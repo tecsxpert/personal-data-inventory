@@ -5,6 +5,8 @@ import com.internship.tool.dto.DataItemResponse;
 import com.internship.tool.entity.DataItem;
 import com.internship.tool.exception.ResourceNotFoundException;
 import com.internship.tool.repository.DataItemRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,8 @@ public class DataItemService {
         this.repository = repository;
     }
 
-    // CREATE
+    // 🔹 CREATE
+    @CacheEvict(value = "dataItems", allEntries = true)
     public DataItemResponse create(DataItemRequest request) {
         DataItem item = new DataItem();
         item.setName(request.getName());
@@ -31,15 +34,20 @@ public class DataItemService {
         return mapToResponse(repository.save(item));
     }
 
-    // GET ALL
+    // 🔹 GET ALL (CACHED)
+    @Cacheable("dataItems")
     public List<DataItemResponse> getAll() {
+
+        System.out.println("🔥 Fetching from DB...");
+
         return repository.findAll()
                 .stream()
                 .map(this::mapToResponse)
                 .collect(Collectors.toList());
     }
 
-    // GET BY ID
+    // 🔹 GET BY ID (CACHED)
+    @Cacheable(value = "dataItems", key = "#id")
     public DataItemResponse getById(Long id) {
         DataItem item = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Data not found with id: " + id));
@@ -47,7 +55,8 @@ public class DataItemService {
         return mapToResponse(item);
     }
 
-    // UPDATE
+    // 🔹 UPDATE
+    @CacheEvict(value = "dataItems", allEntries = true)
     public DataItemResponse update(Long id, DataItemRequest request) {
         DataItem item = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Data not found with id: " + id));
@@ -59,7 +68,8 @@ public class DataItemService {
         return mapToResponse(repository.save(item));
     }
 
-    // DELETE
+    // 🔹 DELETE
+    @CacheEvict(value = "dataItems", allEntries = true)
     public void delete(Long id) {
         DataItem item = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Data not found with id: " + id));
@@ -67,13 +77,13 @@ public class DataItemService {
         repository.delete(item);
     }
 
-    // PAGINATION
+    // 🔹 PAGINATION
     public Page<DataItemResponse> getAllWithPagination(Pageable pageable) {
         return repository.findAll(pageable)
                 .map(this::mapToResponse);
     }
 
-    // SEARCH
+    // 🔹 SEARCH
     public List<DataItemResponse> searchByName(String name) {
         return repository.findByNameContainingIgnoreCase(name)
                 .stream()
@@ -81,7 +91,7 @@ public class DataItemService {
                 .collect(Collectors.toList());
     }
 
-    // MAPPER
+    // 🔹 MAPPER
     private DataItemResponse mapToResponse(DataItem item) {
         return new DataItemResponse(
                 item.getId(),
