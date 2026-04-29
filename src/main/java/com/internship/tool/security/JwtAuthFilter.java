@@ -4,7 +4,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Collections;
+import java.util.List;
 
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
@@ -35,33 +34,24 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-        System.out.println("🔥 JWT FILTER RUNNING");
-
         String header = request.getHeader("Authorization");
 
         if (header != null && header.startsWith("Bearer ")) {
 
             String token = header.substring(7);
-            System.out.println("TOKEN: " + token);
 
             if (jwtUtil.validateToken(token)) {
 
                 String username = jwtUtil.extractUsername(token);
                 String role = jwtUtil.extractRole(token);
 
-                System.out.println("ROLE: " + role);
-
-                if (username != null && role != null &&
-                        SecurityContextHolder.getContext().getAuthentication() == null) {
-
-                    SimpleGrantedAuthority authority =
-                            new SimpleGrantedAuthority("ROLE_" + role);
+                if (SecurityContextHolder.getContext().getAuthentication() == null) {
 
                     UsernamePasswordAuthenticationToken auth =
                             new UsernamePasswordAuthenticationToken(
                                     username,
                                     null,
-                                    Collections.singletonList(authority)
+                                    List.of(new SimpleGrantedAuthority("ROLE_" + role))
                             );
 
                     auth.setDetails(
@@ -69,16 +59,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     );
 
                     SecurityContextHolder.getContext().setAuthentication(auth);
-
-                    System.out.println("✅ AUTHENTICATED: " + username + " | ROLE: " + role);
                 }
-
-            } else {
-                System.out.println("❌ TOKEN INVALID");
             }
-
-        } else {
-            System.out.println("❌ NO AUTH HEADER");
         }
 
         filterChain.doFilter(request, response);

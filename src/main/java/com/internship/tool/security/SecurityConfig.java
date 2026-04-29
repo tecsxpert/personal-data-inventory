@@ -25,24 +25,24 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth
 
-                        // 🔓 Allow auth APIs
+                        // 🔓 Public
                         .requestMatchers("/api/auth/**").permitAll()
 
-                        // 🔓 Allow Swagger (ALL required paths)
+                        // 🔓 Swagger
                         .requestMatchers(
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
                                 "/v3/api-docs/**",
-                                "/v3/api-docs",
                                 "/swagger-resources/**",
                                 "/webjars/**"
                         ).permitAll()
 
-                        // 🔒 Secure everything else
+                        // 🔒 Protected APIs
+                        .requestMatchers("/api/data-items/**").hasAnyRole("ADMIN", "USER")
+
                         .anyRequest().authenticated()
                 )
 
-                // 🔥 IMPORTANT: Add JWT filter
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
