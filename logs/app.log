@@ -410,3 +410,35 @@
 2026-04-30T22:07:49.298+05:30  INFO 14484 --- [http-nio-8080-exec-5] c.internship.tool.logging.LoggingAspect  : ⬅️ Response: getAll() | Time: 0 ms
 2026-04-30T22:07:50.941+05:30  INFO 14484 --- [http-nio-8080-exec-6] c.internship.tool.logging.LoggingAspect  : ➡️ Request: getAll()
 2026-04-30T22:07:50.941+05:30  INFO 14484 --- [http-nio-8080-exec-6] c.internship.tool.logging.LoggingAspect  : ⬅️ Response: getAll() | Time: 0 ms
+2026-04-30T22:22:36.310+05:30  INFO 14484 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-30T22:22:36.312+05:30  INFO 14484 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-04-30T22:22:36.314+05:30  INFO 14484 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-04-30 22:22:38 [INFO] com.internship.tool.PersonalDataInventoryApplication - Starting PersonalDataInventoryApplication using Java 17.0.18 with PID 39880 (C:\Users\ASUS\Documents\IdeaProjects\personal-data-inventory\target\classes started by ASUS in C:\Users\ASUS\Documents\IdeaProjects\personal-data-inventory)
+2026-04-30 22:22:38 [DEBUG] com.internship.tool.PersonalDataInventoryApplication - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-04-30 22:22:38 [INFO] com.internship.tool.PersonalDataInventoryApplication - No active profile set, falling back to 1 default profile: "default"
+2026-04-30 22:22:39 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-30 22:22:39 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-30 22:22:39 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 118 ms. Found 1 JPA repository interface.
+2026-04-30 22:22:39 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-30 22:22:39 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-04-30 22:22:39 [INFO] org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.internship.tool.repository.DataItemRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-04-30 22:22:39 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+2026-04-30 22:22:40 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-04-30 22:22:40 [INFO] org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-30 22:22:40 [INFO] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-04-30 22:22:40 [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-04-30 22:22:40 [INFO] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2637 ms
+2026-04-30 22:22:41 [DEBUG] com.internship.tool.security.JwtAuthFilter - Filter 'jwtAuthFilter' configured for use
+2026-04-30 22:22:41 [INFO] org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-04-30 22:22:41 [INFO] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-04-30 22:22:41 [INFO] org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-04-30 22:22:41 [INFO] org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-30 22:22:41 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-30 22:22:42 [INFO] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@72646d16
+2026-04-30 22:22:42 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-30 22:22:43 [INFO] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-30 22:22:43 [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-30 22:22:45 [INFO] org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver - Exposing 14 endpoint(s) beneath base path '/actuator'
+2026-04-30 22:22:45 [INFO] org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@574f89bf, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2fbc704a, org.springframework.security.web.context.SecurityContextHolderFilter@27828021, org.springframework.security.web.header.HeaderWriterFilter@3c22a99a, org.springframework.web.filter.CorsFilter@59a71bef, org.springframework.security.web.authentication.logout.LogoutFilter@13f6395d, com.internship.tool.security.JwtAuthFilter@4403bff8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6e18bc2f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3f7d20c5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@169f4152, org.springframework.security.web.access.ExceptionTranslationFilter@45fdd38d, org.springframework.security.web.access.intercept.AuthorizationFilter@70dbd79f]
+2026-04-30 22:22:46 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-04-30 22:22:46 [INFO] com.internship.tool.PersonalDataInventoryApplication - Started PersonalDataInventoryApplication in 8.811 seconds (process running for 9.222)
