@@ -22,14 +22,18 @@ public class DataItemService {
     private static final Logger logger = LoggerFactory.getLogger(DataItemService.class);
 
     private final DataItemRepository repository;
+    private final EmailService emailService;
 
-    public DataItemService(DataItemRepository repository) {
+    // ✅ CONSTRUCTOR
+    public DataItemService(DataItemRepository repository, EmailService emailService) {
         this.repository = repository;
+        this.emailService = emailService;
     }
 
     // 🔹 CREATE
     @CacheEvict(value = "dataItems", allEntries = true)
     public DataItemResponse create(DataItemRequest request) {
+
         logger.info("Creating new data item: {}", request.getName());
 
         DataItem item = new DataItem();
@@ -40,6 +44,21 @@ public class DataItemService {
         DataItem savedItem = repository.save(item);
 
         logger.info("Data item created with ID: {}", savedItem.getId());
+
+        // 🔥 EMAIL (THYMELEAF BASED — DAY 7 FINAL)
+        try {
+            emailService.sendEmail(
+                    "yashashjhj@gmail.com",
+                    "Data Item Created",
+                    "A new data item has been created",
+                    savedItem.getName()
+            );
+
+            logger.info("Email sent successfully for item: {}", savedItem.getName());
+
+        } catch (Exception e) {
+            logger.error("Failed to send email: {}", e.getMessage());
+        }
 
         return mapToResponse(savedItem);
     }
@@ -58,6 +77,7 @@ public class DataItemService {
     // 🔹 GET BY ID (CACHED)
     @Cacheable(value = "dataItems", key = "#id")
     public DataItemResponse getById(Long id) {
+
         logger.info("Fetching data item by ID: {}", id);
 
         DataItem item = repository.findById(id)
@@ -72,6 +92,7 @@ public class DataItemService {
     // 🔹 UPDATE
     @CacheEvict(value = "dataItems", allEntries = true)
     public DataItemResponse update(Long id, DataItemRequest request) {
+
         logger.info("Updating data item with ID: {}", id);
 
         DataItem item = repository.findById(id)
@@ -94,6 +115,7 @@ public class DataItemService {
     // 🔹 DELETE
     @CacheEvict(value = "dataItems", allEntries = true)
     public void delete(Long id) {
+
         logger.info("Deleting data item with ID: {}", id);
 
         DataItem item = repository.findById(id)
@@ -109,6 +131,7 @@ public class DataItemService {
 
     // 🔹 PAGINATION
     public Page<DataItemResponse> getAllWithPagination(Pageable pageable) {
+
         logger.info("Fetching data items with pagination");
 
         return repository.findAll(pageable)
@@ -117,6 +140,7 @@ public class DataItemService {
 
     // 🔹 SEARCH
     public List<DataItemResponse> searchByName(String name) {
+
         logger.info("Searching data items with name: {}", name);
 
         return repository.findByNameContainingIgnoreCase(name)
