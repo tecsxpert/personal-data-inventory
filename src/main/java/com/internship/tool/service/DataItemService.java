@@ -45,7 +45,7 @@ public class DataItemService {
 
         logger.info("Data item created with ID: {}", savedItem.getId());
 
-        // 🔥 EMAIL (THYMELEAF BASED — DAY 7 FINAL)
+        // 🔥 EMAIL (DAY 7 FINAL)
         try {
             emailService.sendEmail(
                     "yashashjhj@gmail.com",
@@ -66,6 +66,10 @@ public class DataItemService {
     // 🔹 GET ALL (CACHED)
     @Cacheable("dataItems")
     public List<DataItemResponse> getAll() {
+
+        // 🔥 THIS LINE IS FOR TESTING CACHE (VERY IMPORTANT)
+        System.out.println("🔥 DB HIT: getAll() executed");
+
         logger.info("Fetching all data items from DB");
 
         return repository.findAll()
