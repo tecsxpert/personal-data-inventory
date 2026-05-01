@@ -62,55 +62,67 @@ const handleSubmit = (e) => {
 };
 
   return (
-    <div className="p-6 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Create Item</h1>
+  <div className="p-6 max-w-xl mx-auto">
+    <h1 className="text-2xl font-bold mb-4 text-center">
+      Create Item
+    </h1>
 
-      {message && (
-            <p className="text-center mb-4 text-sm font-medium">
-            {message}
-            </p>
-      )}
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        
+    {message && (
+      <p className="text-center mb-4 text-sm font-medium">
+        {message}
+      </p>
+    )}
+
+    <form onSubmit={handleSubmit} className="space-y-4">
+
+      <div>
         <input
           type="text"
           name="name"
           placeholder="Name"
           value={form.name}
           onChange={handleChange}
-          className="border p-2 rounded"
+          className="border p-2 rounded w-full"
         />
-        {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+        {errors.name && (
+          <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+        )}
+      </div>
 
+      <div>
         <textarea
           name="description"
           placeholder="Description"
           value={form.description}
           onChange={handleChange}
-          className="border p-2 rounded"
+          className="border p-2 rounded w-full"
         />
         {errors.description && (
-          <p className="text-red-500 text-sm">{errors.description}</p>
+          <p className="text-red-500 text-sm mt-1">{errors.description}</p>
         )}
+      </div>
 
+      <div>
         <input
           type="text"
           name="category"
           placeholder="Category"
           value={form.category}
           onChange={handleChange}
-          className="border p-2 rounded"
+          className="border p-2 rounded w-full"
         />
         {errors.category && (
-          <p className="text-red-500 text-sm">{errors.category}</p>
+          <p className="text-red-500 text-sm mt-1">{errors.category}</p>
         )}
+      </div>
 
-        <button className="bg-blue-500 text-white p-2 rounded">
-          Submit
-        </button>
-      </form>
-    </div>
-  );
+      <button className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
+        Submit
+      </button>
+
+    </form>
+  </div>
+);
 };
 
 export default CreateForm;

@@ -113,24 +113,23 @@ const handleExport = () => {
 };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">List Page</h1>
+  <div className="p-6 max-w-6xl mx-auto">
+    <h1 className="text-2xl font-bold mb-4">List Page</h1>
 
-    <div className="mb-4">
+    {/* Filters */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
       <input
         type="text"
         placeholder="Search..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="border px-3 py-1 rounded w-full"
+        className="border px-3 py-2 rounded w-full"
       />
-    </div>
 
-    <div className="mb-4">
       <select
         value={status}
         onChange={(e) => setStatus(e.target.value)}
-        className="border px-3 py-1 rounded w-full"
+        className="border px-3 py-2 rounded w-full"
       >
         <option value="">All Status</option>
         <option value="ACTIVE">ACTIVE</option>
@@ -138,38 +137,43 @@ const handleExport = () => {
       </select>
     </div>
 
-    <div className="mb-4 flex gap-2">
+    {/* Date Filters */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
       <input
         type="date"
         value={startDate}
         onChange={(e) => setStartDate(e.target.value)}
-        className="border px-3 py-1 rounded w-full"
+        className="border px-3 py-2 rounded w-full"
       />
 
       <input
         type="date"
         value={endDate}
         onChange={(e) => setEndDate(e.target.value)}
-        className="border px-3 py-1 rounded w-full"
+        className="border px-3 py-2 rounded w-full"
       />
     </div>
 
-    <button
-      onClick={handleExport}
-      className="mb-4 bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-    >
-    Export CSV
-    </button>
+    {/* Action Buttons */}
+    <div className="flex flex-wrap gap-2 mb-4">
+      <button
+        onClick={handleExport}
+        className="bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600"
+      >
+        Export CSV
+      </button>
 
+      <button
+        onClick={() => navigate("/analytics")}
+        className="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600"
+      >
+        Analytics
+      </button>
+    </div>
 
-    <button
-      onClick={() => navigate("/analytics")}
-      className="mb-4 ml-2 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-    >
-      Go to Analytics
-    </button>
-
-      <table className="w-full border border-gray-300">
+    {/* Table Wrapper for Scroll */}
+    <div className="overflow-x-auto">
+      <table className="min-w-full border border-gray-300">
         <thead className="bg-gray-200">
           <tr>
             <th className="border p-2">ID</th>
@@ -200,7 +204,7 @@ const handleExport = () => {
           {data.length === 0 ? (
             <tr>
               <td colSpan="5" className="text-center p-6 text-gray-500">
-              No data found. Try adjusting filters or create a new item.
+                No data found. Try adjusting filters or create a new item.
               </td>
             </tr>
           ) : (
@@ -230,24 +234,26 @@ const handleExport = () => {
           )}
         </tbody>
       </table>
-
-      <div className="mt-4 flex gap-2">
-        <button
-          onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
-          className="bg-gray-300 px-3 py-1 rounded"
-        >
-          Prev
-        </button>
-
-        <button
-          onClick={() => setPage((prev) => prev + 1)}
-          className="bg-gray-300 px-3 py-1 rounded"
-        >
-          Next
-        </button>
-      </div>
     </div>
-  );
+
+    {/* Pagination */}
+    <div className="mt-4 flex justify-between">
+      <button
+        onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
+        className="bg-gray-300 px-3 py-2 rounded"
+      >
+        Prev
+      </button>
+
+      <button
+        onClick={() => setPage((prev) => prev + 1)}
+        className="bg-gray-300 px-3 py-2 rounded"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+);
 };
 
 export default Dashboard;
