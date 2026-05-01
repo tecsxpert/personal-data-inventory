@@ -35,7 +35,7 @@ useEffect(() => {
       setLoading(false);
     })
     .catch(() => {
-      console.error("API failed, using dummy data");
+      console.error("API not working, using dummy data");
 
       setData([
         {
