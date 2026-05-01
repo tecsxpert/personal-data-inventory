@@ -13,6 +13,7 @@ const Dashboard = () => {
   const [status, setStatus] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [error, setError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -26,34 +27,60 @@ useEffect(() => {
   api
     .get(`/api/data-items?page=${page}&size=5&sort=${sortBy},${order}&search=${debouncedSearch}&status=${status}`)
     .then((res) => {
-      if (Array.isArray(res.data)) {
-        setData(res.data);
-      } else {
-        setData(res.data.content);
-      }
+  if (Array.isArray(res.data)) {
+    setData(res.data);
+  } else if (Array.isArray(res.data.content)) {
+    setData(res.data.content);
+  } else {
+    setData([]); // fallback safe
+  }
 
-      setLoading(false);
-    })
+  setError(false);
+  setLoading(false);
+})
     .catch(() => {
-      console.error("API not working, using dummy data");
+  console.error("API not working, using dummy data");
+  setError(true);
 
-      setData([
-        {
-          id: 1,
-          name: "Google",
-          description: "Search engine",
-          category: "Technology",
-        },
-      ]);
+  setData([
+    {
+      id: 1,
+      name: "Google",
+      description: "Search engine",
+      category: "Technology",
+    },
+  ]);
 
-      setLoading(false);
-    });
+  setLoading(false);
+});
 }, [page, sortBy, order, debouncedSearch, status]);
 
   if (loading) {
-    return <div className="p-6">Loading...</div>;
-  }
+  return (
+    <div className="p-6 space-y-3">
+      <div className="h-6 bg-gray-300 rounded w-1/3"></div>
+      <div className="h-6 bg-gray-300 rounded"></div>
+      <div className="h-6 bg-gray-300 rounded"></div>
+      <div className="h-6 bg-gray-300 rounded"></div>
+    </div>
+  );
+}
 
+if (error) {
+  return (
+    <div className="p-6 text-center">
+      <p className="text-red-500 mb-3">
+        Failed to load data. Please try again.
+      </p>
+      <button
+        onClick={() => window.location.reload()}
+        className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+      >
+        Retry
+      </button>
+    </div>
+  );
+}
 const handleExport = () => {
   if (data.length === 0) return;
 
@@ -172,8 +199,8 @@ const handleExport = () => {
         <tbody>
           {data.length === 0 ? (
             <tr>
-              <td colSpan="5" className="text-center p-4">
-                No data available
+              <td colSpan="5" className="text-center p-6 text-gray-500">
+              No data found. Try adjusting filters or create a new item.
               </td>
             </tr>
           ) : (
