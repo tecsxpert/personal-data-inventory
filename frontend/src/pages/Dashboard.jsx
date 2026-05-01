@@ -169,6 +169,13 @@ return (
       >
         Analytics
       </button>
+
+      <button
+        onClick={() => navigate("/create")}
+        className="px-4 py-2 rounded text-white text-sm font-medium bg-blue-500 hover:bg-blue-600"
+      >
+      + Create Item
+      </button>
     </div>
 
     {/* Table */}
@@ -203,8 +210,15 @@ return (
         <tbody>
           {data.length === 0 ? (
             <tr>
-              <td colSpan="5" className="text-center p-6 text-gray-500">
-                No data found. Try adjusting filters or create a new item.
+              <td colSpan="5" className="text-center p-6 text-gray-500 space-y-2">
+                <p>No data found.</p>
+
+                <button
+                onClick={() => navigate("/create")}
+                className="px-4 py-2 rounded text-sm font-medium bg-blue-500 hover:bg-blue-600 text-white"
+                >
+                + Create your first item
+                </button>
               </td>
             </tr>
           ) : (
