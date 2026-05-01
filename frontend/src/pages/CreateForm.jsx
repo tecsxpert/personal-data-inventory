@@ -61,62 +61,69 @@ const handleSubmit = (e) => {
   }
 };
 
-  return (
+return (
   <div className="p-6 max-w-xl mx-auto">
-    <h1 className="text-2xl font-bold mb-4 text-center">
+    <h1 className="text-2xl font-semibold mb-5 text-center">
       Create Item
     </h1>
 
     {message && (
-      <p className="text-center mb-4 text-sm font-medium">
+      <p className="text-center mb-4 text-sm font-medium text-blue-600">
         {message}
       </p>
     )}
 
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-5">
 
+      {/* Name */}
       <div>
+        <label className="block text-sm font-medium mb-1">Name</label>
         <input
           type="text"
           name="name"
-          placeholder="Name"
+          placeholder="Enter name"
           value={form.name}
           onChange={handleChange}
-          className="border p-2 rounded w-full"
+          className="border px-3 py-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
         {errors.name && (
           <p className="text-red-500 text-sm mt-1">{errors.name}</p>
         )}
       </div>
 
+      {/* Description */}
       <div>
+        <label className="block text-sm font-medium mb-1">Description</label>
         <textarea
           name="description"
-          placeholder="Description"
+          placeholder="Enter description"
           value={form.description}
           onChange={handleChange}
-          className="border p-2 rounded w-full"
+          className="border px-3 py-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
         {errors.description && (
           <p className="text-red-500 text-sm mt-1">{errors.description}</p>
         )}
       </div>
 
+      {/* Category */}
       <div>
+        <label className="block text-sm font-medium mb-1">Category</label>
         <input
           type="text"
           name="category"
-          placeholder="Category"
+          placeholder="Enter category"
           value={form.category}
           onChange={handleChange}
-          className="border p-2 rounded w-full"
+          className="border px-3 py-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
         {errors.category && (
           <p className="text-red-500 text-sm mt-1">{errors.category}</p>
         )}
       </div>
 
-      <button className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
+      {/* Submit */}
+      <button className="w-full px-4 py-2 rounded text-sm font-medium bg-blue-500 hover:bg-blue-600 text-white">
         Submit
       </button>
 

@@ -112,24 +112,24 @@ const handleExport = () => {
   document.body.removeChild(link);
 };
 
-  return (
+return (
   <div className="p-6 max-w-6xl mx-auto">
-    <h1 className="text-2xl font-bold mb-4">List Page</h1>
+    <h1 className="text-2xl font-semibold mb-6">Dashboard</h1>
 
     {/* Filters */}
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       <input
         type="text"
         placeholder="Search..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="border px-3 py-2 rounded w-full"
+        className="border px-3 py-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
 
       <select
         value={status}
         onChange={(e) => setStatus(e.target.value)}
-        className="border px-3 py-2 rounded w-full"
+        className="border px-3 py-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
       >
         <option value="">All Status</option>
         <option value="ACTIVE">ACTIVE</option>
@@ -138,7 +138,7 @@ const handleExport = () => {
     </div>
 
     {/* Date Filters */}
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       <input
         type="date"
         value={startDate}
@@ -154,31 +154,31 @@ const handleExport = () => {
       />
     </div>
 
-    {/* Action Buttons */}
-    <div className="flex flex-wrap gap-2 mb-4">
+    {/* Actions */}
+    <div className="flex flex-wrap gap-3 mb-5">
       <button
         onClick={handleExport}
-        className="bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600"
+        className="px-4 py-2 rounded text-white text-sm font-medium bg-green-500 hover:bg-green-600"
       >
         Export CSV
       </button>
 
       <button
         onClick={() => navigate("/analytics")}
-        className="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-600"
+        className="px-4 py-2 rounded text-white text-sm font-medium bg-blue-500 hover:bg-blue-600"
       >
         Analytics
       </button>
     </div>
 
-    {/* Table Wrapper for Scroll */}
-    <div className="overflow-x-auto">
-      <table className="min-w-full border border-gray-300">
-        <thead className="bg-gray-200">
+    {/* Table */}
+    <div className="overflow-x-auto border rounded shadow-sm">
+      <table className="min-w-full text-sm">
+        <thead className="bg-gray-100">
           <tr>
-            <th className="border p-2">ID</th>
+            <th className="p-3 text-left">ID</th>
             <th
-              className="border p-2 cursor-pointer"
+              className="p-3 text-left cursor-pointer"
               onClick={() => {
                 setSortBy("name");
                 setOrder(order === "asc" ? "desc" : "asc");
@@ -186,9 +186,9 @@ const handleExport = () => {
             >
               Name {sortBy === "name" ? (order === "asc" ? "↑" : "↓") : ""}
             </th>
-            <th className="border p-2">Description</th>
+            <th className="p-3 text-left">Description</th>
             <th
-              className="border p-2 cursor-pointer"
+              className="p-3 text-left cursor-pointer"
               onClick={() => {
                 setSortBy("category");
                 setOrder(order === "asc" ? "desc" : "asc");
@@ -196,7 +196,7 @@ const handleExport = () => {
             >
               Category {sortBy === "category" ? (order === "asc" ? "↑" : "↓") : ""}
             </th>
-            <th className="border p-2">Actions</th>
+            <th className="p-3 text-left">Actions</th>
           </tr>
         </thead>
 
@@ -212,19 +212,19 @@ const handleExport = () => {
               <tr
                 key={item.id}
                 onClick={() => navigate(`/detail/${item.id}`)}
-                className="cursor-pointer hover:bg-gray-100"
+                className="border-t hover:bg-gray-50 cursor-pointer"
               >
-                <td className="border p-2">{item.id}</td>
-                <td className="border p-2">{item.name}</td>
-                <td className="border p-2">{item.description}</td>
-                <td className="border p-2">{item.category}</td>
-                <td className="border p-2">
+                <td className="p-3">{item.id}</td>
+                <td className="p-3 font-medium">{item.name}</td>
+                <td className="p-3">{item.description}</td>
+                <td className="p-3">{item.category}</td>
+                <td className="p-3">
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       navigate(`/edit/${item.id}`);
                     }}
-                    className="bg-yellow-400 px-2 py-1 rounded hover:bg-yellow-500"
+                    className="px-3 py-1 rounded text-sm font-medium bg-yellow-400 hover:bg-yellow-500 text-black"
                   >
                     Edit
                   </button>
@@ -237,17 +237,17 @@ const handleExport = () => {
     </div>
 
     {/* Pagination */}
-    <div className="mt-4 flex justify-between">
+    <div className="mt-5 flex justify-between items-center">
       <button
         onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
-        className="bg-gray-300 px-3 py-2 rounded"
+        className="px-4 py-2 rounded text-sm font-medium bg-gray-300 hover:bg-gray-400 text-black"
       >
         Prev
       </button>
 
       <button
         onClick={() => setPage((prev) => prev + 1)}
-        className="bg-gray-300 px-3 py-2 rounded"
+        className="px-4 py-2 rounded text-sm font-medium bg-gray-300 hover:bg-gray-400 text-black"
       >
         Next
       </button>
