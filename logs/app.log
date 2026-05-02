@@ -62,3 +62,188 @@
 2026-05-02 11:45:30 [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2026-05-02 11:45:30 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2026-05-02 11:45:30 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-05-02 11:45:32 [INFO] com.internship.tool.PersonalDataInventoryApplication - Starting PersonalDataInventoryApplication using Java 17.0.18 with PID 7836 (C:\Users\ASUS\Documents\IdeaProjects\personal-data-inventory\target\classes started by ASUS in C:\Users\ASUS\Documents\IdeaProjects\personal-data-inventory)
+2026-05-02 11:45:32 [DEBUG] com.internship.tool.PersonalDataInventoryApplication - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-05-02 11:45:32 [INFO] com.internship.tool.PersonalDataInventoryApplication - No active profile set, falling back to 1 default profile: "default"
+2026-05-02 11:45:33 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-05-02 11:45:33 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-02 11:45:33 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 118 ms. Found 1 JPA repository interface.
+2026-05-02 11:45:33 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-05-02 11:45:33 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-05-02 11:45:33 [INFO] org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.internship.tool.repository.DataItemRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-05-02 11:45:33 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+2026-05-02 11:45:34 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-05-02 11:45:34 [INFO] org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-05-02 11:45:34 [INFO] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-05-02 11:45:34 [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-05-02 11:45:34 [INFO] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2656 ms
+2026-05-02 11:45:35 [DEBUG] com.internship.tool.security.JwtAuthFilter - Filter 'jwtAuthFilter' configured for use
+2026-05-02 11:45:35 [INFO] org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-05-02 11:45:35 [INFO] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-05-02 11:45:35 [INFO] org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-05-02 11:45:35 [INFO] org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-02 11:45:35 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-05-02 11:45:36 [INFO] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7abcc0da
+2026-05-02 11:45:36 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-05-02 11:45:37 [INFO] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-02 11:45:37 [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-02 11:45:39 [INFO] org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver - Exposing 14 endpoint(s) beneath base path '/actuator'
+2026-05-02 11:45:39 [INFO] org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3ec8c874, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6a339bc1, org.springframework.security.web.context.SecurityContextHolderFilter@4b75d640, org.springframework.security.web.header.HeaderWriterFilter@6f272dc4, org.springframework.web.filter.CorsFilter@7906de2f, org.springframework.security.web.authentication.logout.LogoutFilter@56c95789, com.internship.tool.security.JwtAuthFilter@63c99f7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@42a08547, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6e18bc2f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@574f89bf, org.springframework.security.web.access.ExceptionTranslationFilter@53b42a0d, org.springframework.security.web.access.intercept.AuthorizationFilter@2b3cbc2c]
+2026-05-02 11:45:40 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-05-02 11:45:40 [INFO] com.internship.tool.PersonalDataInventoryApplication - Started PersonalDataInventoryApplication in 8.655 seconds (process running for 9.108)
+2026-05-02 12:29:31 [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-02 12:29:31 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-05-02 12:29:31 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-05-02 12:35:30 [INFO] com.internship.tool.PersonalDataInventoryApplication - Starting PersonalDataInventoryApplication using Java 17.0.18 with PID 12360 (C:\Users\ASUS\Documents\IdeaProjects\personal-data-inventory\target\classes started by ASUS in C:\Users\ASUS\Documents\IdeaProjects\personal-data-inventory)
+2026-05-02 12:35:30 [DEBUG] com.internship.tool.PersonalDataInventoryApplication - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-05-02 12:35:30 [INFO] com.internship.tool.PersonalDataInventoryApplication - No active profile set, falling back to 1 default profile: "default"
+2026-05-02 12:35:31 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-05-02 12:35:31 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-02 12:35:31 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 119 ms. Found 2 JPA repository interfaces.
+2026-05-02 12:35:31 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-05-02 12:35:31 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-05-02 12:35:31 [INFO] org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.internship.tool.repository.DataItemRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-05-02 12:35:31 [INFO] org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.internship.tool.repository.FileDataRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-05-02 12:35:31 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+2026-05-02 12:35:32 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-05-02 12:35:32 [INFO] org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-05-02 12:35:32 [INFO] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-05-02 12:35:33 [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-05-02 12:35:33 [INFO] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2511 ms
+2026-05-02 12:35:33 [DEBUG] com.internship.tool.security.JwtAuthFilter - Filter 'jwtAuthFilter' configured for use
+2026-05-02 12:35:33 [INFO] org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-05-02 12:35:33 [INFO] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-05-02 12:35:33 [INFO] org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-05-02 12:35:34 [INFO] org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-02 12:35:34 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-05-02 12:35:34 [INFO] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@32d8710a
+2026-05-02 12:35:34 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-05-02 12:35:35 [INFO] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-02 12:35:35 [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-02 12:35:37 [INFO] org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver - Exposing 14 endpoint(s) beneath base path '/actuator'
+2026-05-02 12:35:37 [INFO] org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@7d1f906b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@22fb3dde, org.springframework.security.web.context.SecurityContextHolderFilter@698b2343, org.springframework.security.web.header.HeaderWriterFilter@7aeb5402, org.springframework.web.filter.CorsFilter@38682845, org.springframework.security.web.authentication.logout.LogoutFilter@b7526a9, com.internship.tool.security.JwtAuthFilter@68b3248a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2ce80c85, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5ccf1542, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@72933ccb, org.springframework.security.web.access.ExceptionTranslationFilter@70efc3f9, org.springframework.security.web.access.intercept.AuthorizationFilter@6bbb3ec8]
+2026-05-02 12:35:38 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-05-02 12:35:38 [INFO] com.internship.tool.PersonalDataInventoryApplication - Started PersonalDataInventoryApplication in 8.472 seconds (process running for 8.866)
+2026-05-02 12:42:25 [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-02 12:42:25 [INFO] org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-05-02 12:42:25 [INFO] org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-05-02 12:43:38 [INFO] com.internship.tool.logging.LoggingAspect - ➡️ Request: login()
+2026-05-02 12:45:18 [INFO] com.internship.tool.logging.LoggingAspect - ➡️ Request: login()
+2026-05-02 12:46:09 [INFO] com.internship.tool.logging.LoggingAspect - ➡️ Request: login()
+2026-05-02 12:46:09 [INFO] com.internship.tool.logging.LoggingAspect - ⬅️ Response: login() | Time: 35 ms
+2026-05-02 12:54:02 [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-02 12:54:02 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-05-02 12:54:02 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-05-02 12:54:05 [INFO] com.internship.tool.PersonalDataInventoryApplication - Starting PersonalDataInventoryApplication using Java 17.0.18 with PID 36372 (C:\Users\ASUS\Documents\IdeaProjects\personal-data-inventory\target\classes started by ASUS in C:\Users\ASUS\Documents\IdeaProjects\personal-data-inventory)
+2026-05-02 12:54:05 [DEBUG] com.internship.tool.PersonalDataInventoryApplication - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-05-02 12:54:05 [INFO] com.internship.tool.PersonalDataInventoryApplication - No active profile set, falling back to 1 default profile: "default"
+2026-05-02 12:54:06 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-05-02 12:54:06 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-02 12:54:06 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 122 ms. Found 2 JPA repository interfaces.
+2026-05-02 12:54:06 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-05-02 12:54:06 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-05-02 12:54:06 [INFO] org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.internship.tool.repository.DataItemRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-05-02 12:54:06 [INFO] org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.internship.tool.repository.FileDataRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-05-02 12:54:06 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+2026-05-02 12:54:07 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-05-02 12:54:07 [INFO] org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-05-02 12:54:07 [INFO] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-05-02 12:54:08 [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-05-02 12:54:08 [INFO] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2483 ms
+2026-05-02 12:54:08 [DEBUG] com.internship.tool.security.JwtAuthFilter - Filter 'jwtAuthFilter' configured for use
+2026-05-02 12:54:08 [INFO] org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-05-02 12:54:08 [INFO] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-05-02 12:54:08 [INFO] org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-05-02 12:54:09 [INFO] org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-02 12:54:09 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-05-02 12:54:09 [INFO] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6d695ec4
+2026-05-02 12:54:09 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-05-02 12:54:10 [INFO] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-02 12:54:10 [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-02 12:54:12 [INFO] org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver - Exposing 14 endpoint(s) beneath base path '/actuator'
+2026-05-02 12:54:12 [INFO] org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@34e785db, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5f83b506, org.springframework.security.web.context.SecurityContextHolderFilter@75f2a654, org.springframework.security.web.header.HeaderWriterFilter@1a120e41, org.springframework.web.filter.CorsFilter@59294447, org.springframework.security.web.authentication.logout.LogoutFilter@13190355, com.internship.tool.security.JwtAuthFilter@52d9d817, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4044f07b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5d6de24e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1377af49, org.springframework.security.web.access.ExceptionTranslationFilter@38682845, org.springframework.security.web.access.intercept.AuthorizationFilter@7d727123]
+2026-05-02 12:54:13 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-05-02 12:54:13 [INFO] com.internship.tool.PersonalDataInventoryApplication - Started PersonalDataInventoryApplication in 8.317 seconds (process running for 8.698)
+2026-05-02 13:02:21 [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-02 13:02:21 [INFO] org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-05-02 13:02:21 [INFO] org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-05-02 13:06:34 [INFO] com.internship.tool.logging.LoggingAspect - ➡️ Request: login()
+2026-05-02 13:06:34 [INFO] com.internship.tool.logging.LoggingAspect - ⬅️ Response: login() | Time: 37 ms
+2026-05-02 13:08:10 [INFO] com.internship.tool.logging.LoggingAspect - ➡️ Request: upload()
+2026-05-02 13:09:37 [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-02 13:09:37 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-05-02 13:09:37 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-05-02 13:09:39 [INFO] com.internship.tool.PersonalDataInventoryApplication - Starting PersonalDataInventoryApplication using Java 17.0.18 with PID 38176 (C:\Users\ASUS\Documents\IdeaProjects\personal-data-inventory\target\classes started by ASUS in C:\Users\ASUS\Documents\IdeaProjects\personal-data-inventory)
+2026-05-02 13:09:39 [DEBUG] com.internship.tool.PersonalDataInventoryApplication - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-05-02 13:09:39 [INFO] com.internship.tool.PersonalDataInventoryApplication - No active profile set, falling back to 1 default profile: "default"
+2026-05-02 13:09:40 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-05-02 13:09:40 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-02 13:09:40 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 125 ms. Found 2 JPA repository interfaces.
+2026-05-02 13:09:40 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-05-02 13:09:40 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-05-02 13:09:40 [INFO] org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.internship.tool.repository.DataItemRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-05-02 13:09:40 [INFO] org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.internship.tool.repository.FileDataRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-05-02 13:09:40 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+2026-05-02 13:09:41 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-05-02 13:09:41 [INFO] org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-05-02 13:09:41 [INFO] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-05-02 13:09:42 [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-05-02 13:09:42 [INFO] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2564 ms
+2026-05-02 13:09:42 [DEBUG] com.internship.tool.security.JwtAuthFilter - Filter 'jwtAuthFilter' configured for use
+2026-05-02 13:09:42 [INFO] org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-05-02 13:09:42 [INFO] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-05-02 13:09:42 [INFO] org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-05-02 13:09:42 [INFO] org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-02 13:09:43 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-05-02 13:09:43 [INFO] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4ca4f762
+2026-05-02 13:09:43 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-05-02 13:09:44 [INFO] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-02 13:09:44 [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-02 13:09:46 [INFO] org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver - Exposing 14 endpoint(s) beneath base path '/actuator'
+2026-05-02 13:09:46 [INFO] org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5f7cc6fd, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2b35dde3, org.springframework.security.web.context.SecurityContextHolderFilter@b7526a9, org.springframework.security.web.header.HeaderWriterFilter@35408036, org.springframework.web.filter.CorsFilter@276511ca, org.springframework.security.web.authentication.logout.LogoutFilter@20e43235, com.internship.tool.security.JwtAuthFilter@2d73e8c4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@71669835, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@659f5f32, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@62ee32c6, org.springframework.security.web.access.ExceptionTranslationFilter@113b39e9, org.springframework.security.web.access.intercept.AuthorizationFilter@cf0e8b4]
+2026-05-02 13:09:47 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-05-02 13:09:47 [INFO] com.internship.tool.PersonalDataInventoryApplication - Started PersonalDataInventoryApplication in 8.449 seconds (process running for 8.873)
+2026-05-02 13:10:08 [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-02 13:10:08 [INFO] org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-05-02 13:10:08 [INFO] org.springframework.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-05-02 13:10:08 [INFO] com.internship.tool.logging.LoggingAspect - ➡️ Request: upload()
+2026-05-02 13:10:08 [INFO] com.internship.tool.logging.LoggingAspect - ⬅️ Response: upload() | Time: 77 ms
+2026-05-02 13:18:51 [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-02 13:18:51 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-05-02 13:18:51 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-05-02 13:18:55 [INFO] com.internship.tool.PersonalDataInventoryApplication - Starting PersonalDataInventoryApplication using Java 17.0.18 with PID 19820 (C:\Users\ASUS\Documents\IdeaProjects\personal-data-inventory\target\classes started by ASUS in C:\Users\ASUS\Documents\IdeaProjects\personal-data-inventory)
+2026-05-02 13:18:55 [DEBUG] com.internship.tool.PersonalDataInventoryApplication - Running with Spring Boot v3.2.5, Spring v6.1.6
+2026-05-02 13:18:55 [INFO] com.internship.tool.PersonalDataInventoryApplication - No active profile set, falling back to 1 default profile: "default"
+2026-05-02 13:18:56 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-05-02 13:18:56 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-05-02 13:18:56 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 125 ms. Found 2 JPA repository interfaces.
+2026-05-02 13:18:56 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-05-02 13:18:56 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-05-02 13:18:56 [INFO] org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.internship.tool.repository.DataItemRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-05-02 13:18:56 [INFO] org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport - Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.internship.tool.repository.FileDataRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2026-05-02 13:18:56 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 6 ms. Found 0 Redis repository interfaces.
+2026-05-02 13:18:57 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-05-02 13:18:57 [INFO] org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-05-02 13:18:57 [INFO] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.20]
+2026-05-02 13:18:58 [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-05-02 13:18:58 [INFO] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2707 ms
+2026-05-02 13:18:58 [DEBUG] com.internship.tool.security.JwtAuthFilter - Filter 'jwtAuthFilter' configured for use
+2026-05-02 13:18:58 [INFO] org.hibernate.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-05-02 13:18:58 [INFO] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-05-02 13:18:58 [INFO] org.hibernate.cache.internal.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2026-05-02 13:18:58 [INFO] org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-05-02 13:18:59 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-05-02 13:18:59 [INFO] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7b10472e
+2026-05-02 13:18:59 [INFO] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-05-02 13:19:00 [INFO] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-05-02 13:19:00 [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-05-02 13:19:02 [INFO] org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver - Exposing 14 endpoint(s) beneath base path '/actuator'
+2026-05-02 13:19:02 [INFO] org.springframework.security.web.DefaultSecurityFilterChain - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@53251e03, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5ffae42f, org.springframework.security.web.context.SecurityContextHolderFilter@497d9489, org.springframework.security.web.header.HeaderWriterFilter@738a1324, org.springframework.web.filter.CorsFilter@58182d7, org.springframework.security.web.authentication.logout.LogoutFilter@7951a08c, com.internship.tool.security.JwtAuthFilter@601d295, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@414b785c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@22fb3dde, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1eedf268, org.springframework.security.web.access.ExceptionTranslationFilter@3e0575a2, org.springframework.security.web.access.intercept.AuthorizationFilter@3054551f]
+2026-05-02 13:19:03 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-05-02 13:19:03 [INFO] com.internship.tool.PersonalDataInventoryApplication - Started PersonalDataInventoryApplication in 8.857 seconds (process running for 9.261)
+2026-05-02 13:19:50 [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-05-02 13:19:50 [INFO] org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-05-02 13:19:50 [INFO] org.springframework.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2026-05-02 13:19:50 [INFO] com.internship.tool.logging.LoggingAspect - ➡️ Request: login()
+2026-05-02 13:19:50 [INFO] com.internship.tool.logging.LoggingAspect - ⬅️ Response: login() | Time: 48 ms
+2026-05-02 13:21:33 [INFO] com.internship.tool.logging.LoggingAspect - ➡️ Request: upload()
