@@ -11,16 +11,17 @@ client = chromadb.Client(
 collection = client.get_or_create_collection(name="documents")
 
 
-# Add data
+# Add documents (ONLY once)
 def add_documents():
-    collection.add(
-        documents=[
-            "I paid my electricity bill",
-            "I have a headache and fever",
-            "Python is a programming language"
-        ],
-        ids=["1", "2", "3"]
-    )
+    if collection.count() == 0:
+        collection.add(
+            documents=[
+                "I paid my electricity bill",
+                "I have a headache and fever",
+                "Python is a programming language"
+            ],
+            ids=["1", "2", "3"]
+        )
 
 
 # Get similar docs
@@ -32,7 +33,6 @@ def get_similar_docs(query_text, n=3):
     return results["documents"][0]
 
 
-# 🔥 Auto init (IMPORTANT)
+# Auto initialize DB
 def init_db():
-    if collection.count() == 0:
-        add_documents()
+    add_documents()
