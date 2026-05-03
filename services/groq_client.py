@@ -11,7 +11,7 @@ client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 MODEL_NAME = "llama-3.1-8b-instant"
 
 
-# ---------- Day 3: Classification ----------
+# ---------- CATEGORY FUNCTION ----------
 def classify_text(text):
     prompt = f"""
 You are an AI classifier.
@@ -57,7 +57,7 @@ Text: "{text}"
         }
 
 
-# ---------- Day 5 + Day 9: RAG Answer ----------
+# ---------- RAG FUNCTION (STRICT FINAL VERSION) ----------
 def generate_answer(question, context_docs):
     context = "\n".join(context_docs)
 
@@ -66,9 +66,16 @@ You are an AI assistant.
 
 STRICT RULES:
 - Use ONLY the given context
+- Do NOT assume anything
 - Do NOT use outside knowledge
-- If answer not found, say: "Not enough information"
-- Answer in 1-2 sentences
+- Do NOT add extra explanation
+- Answer in EXACTLY ONE sentence
+- DO NOT infer or guess anything beyond the context
+- If answer is not clearly in context, say: "Not enough information."
+
+IMPORTANT:
+- If context says "headache and fever", DO NOT say "flu"
+- Only repeat what is explicitly written
 
 Context:
 {context}
@@ -81,7 +88,7 @@ Question:
         response = client.chat.completions.create(
             model=MODEL_NAME,
             messages=[{"role": "user", "content": prompt}],
-            temperature=0.2
+            temperature=0.1  # 🔥 lower = less hallucination
         )
 
         content = response.choices[0].message.content.strip()
