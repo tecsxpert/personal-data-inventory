@@ -18,48 +18,58 @@ def query():
         return jsonify({"error": "Question is required"}), 400
 
     question = data["question"]
-
-    # Optional skip cache
     skip_cache = data.get("skip_cache", False)
 
-    try:
-        start = time.time()
+    start = time.time()
 
-        # 🔥 Check cache
+    try:
+        # 🔹 CACHE CHECK
         key, cached = get_cache(question)
 
         if cached and not skip_cache:
             increment_hit()
             result = json.loads(cached)
 
-            log_response_time(time.time() - start)
+            response_time = int((time.time() - start) * 1000)
 
             return jsonify({
-                "answer": result["answer"],
-                "sources": result["sources"],
-                "cached": True
+                "data": result,
+                "meta": {
+                    "confidence": 0.95,
+                    "model_used": "llama-3.1-8b-instant",
+                    "tokens_used": 0,
+                    "response_time_ms": response_time,
+                    "cached": True
+                }
             })
 
-        # ❌ Cache miss
+        # 🔹 CACHE MISS
         increment_miss()
 
         docs = get_similar_docs(question)
-        answer = generate_answer(question, docs)
+        llm_result = generate_answer(question, docs)
 
         result = {
-            "answer": answer,
+            "answer": llm_result["answer"],
             "sources": docs
         }
 
-        # Save cache
         if not skip_cache:
             set_cache(key, result)
 
-        log_response_time(time.time() - start)
+        response_time = int((time.time() - start) * 1000)
+
+        log_response_time(response_time / 1000)
 
         return jsonify({
-            **result,
-            "cached": False
+            "data": result,
+            "meta": {
+                "confidence": 0.9,
+                "model_used": llm_result["model"],
+                "tokens_used": llm_result["tokens_used"],
+                "response_time_ms": response_time,
+                "cached": False
+            }
         })
 
     except Exception as e:
