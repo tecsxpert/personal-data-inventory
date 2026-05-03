@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify
-from services.metrics import get_avg_response_time, get_uptime, get_cache_stats
+from services.metrics import get_avg_response_time, get_uptime
 from services.vector_db import collection
+from services.cache import get_cache_stats
 
 health_bp = Blueprint("health", __name__)
 
@@ -11,5 +12,5 @@ def health():
         "avg_response_time": round(get_avg_response_time(), 3),
         "chroma_doc_count": collection.count(),
         "uptime_seconds": round(get_uptime(), 2),
-        "cache": get_cache_stats()
+        "cache": get_cache_stats()   # 🔥 Redis cache stats
     })
