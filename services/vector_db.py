@@ -1,16 +1,17 @@
 import chromadb
 
-# Initialize persistent DB (stored locally)
+# Create DB client
 client = chromadb.Client(
     settings=chromadb.config.Settings(
         persist_directory="./chroma_db"
     )
 )
 
-# Create or get collection
+# Create collection
 collection = client.get_or_create_collection(name="documents")
 
 
+# Add data
 def add_documents():
     collection.add(
         documents=[
@@ -22,9 +23,16 @@ def add_documents():
     )
 
 
-def query_documents(query_text):
+# Get similar docs
+def get_similar_docs(query_text, n=3):
     results = collection.query(
         query_texts=[query_text],
-        n_results=1
+        n_results=n
     )
-    return results
+    return results["documents"][0]
+
+
+# 🔥 Auto init (IMPORTANT)
+def init_db():
+    if collection.count() == 0:
+        add_documents()
