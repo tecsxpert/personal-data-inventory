@@ -1,29 +1,34 @@
 from flask import Flask
 
-# Import routes
+# 🔹 Import all route blueprints
 from routes.categorise import categorise_bp
 from routes.query import query_bp
 from routes.health import health_bp
+from routes.report import report_bp   # Day 11 async
 
-# Import DB init
-from services.vector_db import init_db
-
-# Create app
+# 🔹 Create Flask app
 app = Flask(__name__)
 
-# Initialize database (important)
-init_db()
-
-# Register all routes
+# 🔹 Register all endpoints
 app.register_blueprint(categorise_bp)
 app.register_blueprint(query_bp)
 app.register_blueprint(health_bp)
+app.register_blueprint(report_bp)   # includes /generate-report and /job/<id>
 
-# Home route
+# 🔹 Optional root route (just to avoid 404 on /)
 @app.route("/")
 def home():
-    return "API is running"
+    return {
+        "message": "AI Backend Running 🚀",
+        "endpoints": [
+            "/categorise",
+            "/query",
+            "/health",
+            "/generate-report",
+            "/job/<job_id>"
+        ]
+    }
 
-# Run server
+# 🔹 Run server
 if __name__ == "__main__":
     app.run(debug=True)
