@@ -13,6 +13,7 @@ const Dashboard = () => {
   const [status, setStatus] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [error, setError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -26,34 +27,60 @@ useEffect(() => {
   api
     .get(`/api/data-items?page=${page}&size=5&sort=${sortBy},${order}&search=${debouncedSearch}&status=${status}`)
     .then((res) => {
-      if (Array.isArray(res.data)) {
-        setData(res.data);
-      } else {
-        setData(res.data.content);
-      }
+  if (Array.isArray(res.data)) {
+    setData(res.data);
+  } else if (Array.isArray(res.data.content)) {
+    setData(res.data.content);
+  } else {
+    setData([]); // fallback safe
+  }
 
-      setLoading(false);
-    })
+  setError(false);
+  setLoading(false);
+})
     .catch(() => {
-      console.error("API failed, using dummy data");
+  console.error("API not working, using dummy data");
+  setError(true);
 
-      setData([
-        {
-          id: 1,
-          name: "Google",
-          description: "Search engine",
-          category: "Technology",
-        },
-      ]);
+  setData([
+    {
+      id: 1,
+      name: "Google",
+      description: "Search engine",
+      category: "Technology",
+    },
+  ]);
 
-      setLoading(false);
-    });
+  setLoading(false);
+});
 }, [page, sortBy, order, debouncedSearch, status]);
 
   if (loading) {
-    return <div className="p-6">Loading...</div>;
-  }
+  return (
+    <div className="p-6 space-y-3">
+      <div className="h-6 bg-gray-300 rounded w-1/3"></div>
+      <div className="h-6 bg-gray-300 rounded"></div>
+      <div className="h-6 bg-gray-300 rounded"></div>
+      <div className="h-6 bg-gray-300 rounded"></div>
+    </div>
+  );
+}
 
+if (error) {
+  return (
+    <div className="p-6 text-center">
+      <p className="text-red-500 mb-3">
+        Failed to load data. Please try again.
+      </p>
+      <button
+        onClick={() => window.location.reload()}
+        className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+      >
+        Retry
+      </button>
+    </div>
+  );
+}
 const handleExport = () => {
   if (data.length === 0) return;
 
@@ -85,25 +112,24 @@ const handleExport = () => {
   document.body.removeChild(link);
 };
 
-  return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">List Page</h1>
+return (
+  <div className="p-6 max-w-6xl mx-auto">
+    <h1 className="text-2xl font-semibold mb-6">Dashboard</h1>
 
-    <div className="mb-4">
+    {/* Filters */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       <input
         type="text"
         placeholder="Search..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="border px-3 py-1 rounded w-full"
+        className="border px-3 py-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
-    </div>
 
-    <div className="mb-4">
       <select
         value={status}
         onChange={(e) => setStatus(e.target.value)}
-        className="border px-3 py-1 rounded w-full"
+        className="border px-3 py-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
       >
         <option value="">All Status</option>
         <option value="ACTIVE">ACTIVE</option>
@@ -111,43 +137,55 @@ const handleExport = () => {
       </select>
     </div>
 
-    <div className="mb-4 flex gap-2">
+    {/* Date Filters */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       <input
         type="date"
         value={startDate}
         onChange={(e) => setStartDate(e.target.value)}
-        className="border px-3 py-1 rounded w-full"
+        className="border px-3 py-2 rounded w-full"
       />
 
       <input
         type="date"
         value={endDate}
         onChange={(e) => setEndDate(e.target.value)}
-        className="border px-3 py-1 rounded w-full"
+        className="border px-3 py-2 rounded w-full"
       />
     </div>
 
-    <button
-      onClick={handleExport}
-      className="mb-4 bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-    >
-    Export CSV
-    </button>
+    {/* Actions */}
+    <div className="flex flex-wrap gap-3 mb-5">
+      <button
+        onClick={handleExport}
+        className="px-4 py-2 rounded text-white text-sm font-medium bg-green-500 hover:bg-green-600"
+      >
+        Export CSV
+      </button>
 
+      <button
+        onClick={() => navigate("/analytics")}
+        className="px-4 py-2 rounded text-white text-sm font-medium bg-blue-500 hover:bg-blue-600"
+      >
+        Analytics
+      </button>
 
-    <button
-      onClick={() => navigate("/analytics")}
-      className="mb-4 ml-2 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-    >
-      Go to Analytics
-    </button>
+      <button
+        onClick={() => navigate("/create")}
+        className="px-4 py-2 rounded text-white text-sm font-medium bg-blue-500 hover:bg-blue-600"
+      >
+      + Create Item
+      </button>
+    </div>
 
-      <table className="w-full border border-gray-300">
-        <thead className="bg-gray-200">
+    {/* Table */}
+    <div className="overflow-x-auto border rounded shadow-sm">
+      <table className="min-w-full text-sm">
+        <thead className="bg-gray-100">
           <tr>
-            <th className="border p-2">ID</th>
+            <th className="p-3 text-left">ID</th>
             <th
-              className="border p-2 cursor-pointer"
+              className="p-3 text-left cursor-pointer"
               onClick={() => {
                 setSortBy("name");
                 setOrder(order === "asc" ? "desc" : "asc");
@@ -155,9 +193,9 @@ const handleExport = () => {
             >
               Name {sortBy === "name" ? (order === "asc" ? "↑" : "↓") : ""}
             </th>
-            <th className="border p-2">Description</th>
+            <th className="p-3 text-left">Description</th>
             <th
-              className="border p-2 cursor-pointer"
+              className="p-3 text-left cursor-pointer"
               onClick={() => {
                 setSortBy("category");
                 setOrder(order === "asc" ? "desc" : "asc");
@@ -165,15 +203,22 @@ const handleExport = () => {
             >
               Category {sortBy === "category" ? (order === "asc" ? "↑" : "↓") : ""}
             </th>
-            <th className="border p-2">Actions</th>
+            <th className="p-3 text-left">Actions</th>
           </tr>
         </thead>
 
         <tbody>
           {data.length === 0 ? (
             <tr>
-              <td colSpan="5" className="text-center p-4">
-                No data available
+              <td colSpan="5" className="text-center p-6 text-gray-500 space-y-2">
+                <p>No data found.</p>
+
+                <button
+                onClick={() => navigate("/create")}
+                className="px-4 py-2 rounded text-sm font-medium bg-blue-500 hover:bg-blue-600 text-white"
+                >
+                + Create your first item
+                </button>
               </td>
             </tr>
           ) : (
@@ -181,19 +226,19 @@ const handleExport = () => {
               <tr
                 key={item.id}
                 onClick={() => navigate(`/detail/${item.id}`)}
-                className="cursor-pointer hover:bg-gray-100"
+                className="border-t hover:bg-gray-50 cursor-pointer"
               >
-                <td className="border p-2">{item.id}</td>
-                <td className="border p-2">{item.name}</td>
-                <td className="border p-2">{item.description}</td>
-                <td className="border p-2">{item.category}</td>
-                <td className="border p-2">
+                <td className="p-3">{item.id}</td>
+                <td className="p-3 font-medium">{item.name}</td>
+                <td className="p-3">{item.description}</td>
+                <td className="p-3">{item.category}</td>
+                <td className="p-3">
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       navigate(`/edit/${item.id}`);
                     }}
-                    className="bg-yellow-400 px-2 py-1 rounded hover:bg-yellow-500"
+                    className="px-3 py-1 rounded text-sm font-medium bg-yellow-400 hover:bg-yellow-500 text-black"
                   >
                     Edit
                   </button>
@@ -203,24 +248,26 @@ const handleExport = () => {
           )}
         </tbody>
       </table>
-
-      <div className="mt-4 flex gap-2">
-        <button
-          onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
-          className="bg-gray-300 px-3 py-1 rounded"
-        >
-          Prev
-        </button>
-
-        <button
-          onClick={() => setPage((prev) => prev + 1)}
-          className="bg-gray-300 px-3 py-1 rounded"
-        >
-          Next
-        </button>
-      </div>
     </div>
-  );
+
+    {/* Pagination */}
+    <div className="mt-5 flex justify-between items-center">
+      <button
+        onClick={() => setPage((prev) => Math.max(prev - 1, 0))}
+        className="px-4 py-2 rounded text-sm font-medium bg-gray-300 hover:bg-gray-400 text-black"
+      >
+        Prev
+      </button>
+
+      <button
+        onClick={() => setPage((prev) => prev + 1)}
+        className="px-4 py-2 rounded text-sm font-medium bg-gray-300 hover:bg-gray-400 text-black"
+      >
+        Next
+      </button>
+    </div>
+  </div>
+);
 };
 
 export default Dashboard;
