@@ -1,80 +1,107 @@
 import os
-import time
-import logging
-import json
 from groq import Groq
 from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
 
-# Setup logging
-logging.basicConfig(level=logging.ERROR)
+# Initialize Groq client
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-class GroqClient:
-    def __init__(self):
-        api_key = os.getenv("GROQ_API_KEY")
-        if not api_key:
-            raise ValueError("GROQ_API_KEY not found in .env file")
+MODEL_NAME = "llama-3.1-8b-instant"
 
-        self.client = Groq(api_key=api_key)
 
-    def generate_response(self, prompt, retries=3):
-        for attempt in range(retries):
-            try:
-                response = self.client.chat.completions.create(
-                    model="llama-3.1-8b-instant",
-                    messages=[
-                        {
-                            "role": "user",
-                            "content": f"""
-You are a JSON generator.
+# ---------- CATEGORY FUNCTION ----------
+def classify_text(text):
+    prompt = f"""
+You are an AI classifier.
 
-User request: {prompt}
+Classify the text into ONE category:
+Finance, Health, Technology, Education, General
 
-Return ONLY valid JSON.
-Do NOT include explanations, notes, markdown, or extra text.
+Rules:
+- Always choose ONE category
+- Confidence must be between 0 and 1
+- Give short reasoning
 
-Format:
+Respond ONLY in VALID JSON:
 {{
-    "destination": "",
-    "days": "",
-    "itinerary": [
-        {{
-            "day": 1,
-            "plan": ""
-        }}
-    ],
-    "budget": "",
-    "tips": []
+  "category": "",
+  "confidence": 0.0,
+  "reasoning": ""
 }}
+
+Text: "{text}"
 """
-                        }
-                    ]
-                )
 
-                content = response.choices[0].message.content.strip()
+    try:
+        response = client.chat.completions.create(
+            model=MODEL_NAME,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.2
+        )
 
-                # 🔥 Remove markdown if present
-                if content.startswith("```"):
-                    content = content.replace("```json", "").replace("```", "").strip()
+        content = response.choices[0].message.content.strip()
 
-                # 🔥 Keep only JSON part (remove extra text after last })
-                if "}" in content:
-                    content = content[:content.rfind("}") + 1]
+        return {
+            "result": content,
+            "tokens_used": response.usage.total_tokens,
+            "model": MODEL_NAME
+        }
 
-                # ✅ Parse JSON
-                try:
-                    return json.loads(content)
-                except json.JSONDecodeError:
-                    return {"error": "Invalid JSON response", "raw": content}
+    except Exception as e:
+        return {
+            "result": f'{{"category":"Error","confidence":0.0,"reasoning":"{str(e)}"}}',
+            "tokens_used": 0,
+            "model": MODEL_NAME
+        }
 
-            except Exception as e:
-                logging.error(f"Error on attempt {attempt + 1}: {e}")
 
-                if attempt < retries - 1:
-                    wait_time = 2 ** attempt  # 1s, 2s, 4s
-                    print(f"Retrying in {wait_time} seconds...")
-                    time.sleep(wait_time)
-                else:
-                    return {"error": "Failed to get response from Groq API"}
+# ---------- RAG FUNCTION (STRICT FINAL VERSION) ----------
+def generate_answer(question, context_docs):
+    context = "\n".join(context_docs)
+
+    prompt = f"""
+You are an AI assistant.
+
+STRICT RULES:
+- Use ONLY the given context
+- Do NOT assume anything
+- Do NOT use outside knowledge
+- Do NOT add extra explanation
+- Answer in EXACTLY ONE sentence
+- DO NOT infer or guess anything beyond the context
+- If answer is not clearly in context, say: "Not enough information."
+
+IMPORTANT:
+- If context says "headache and fever", DO NOT say "flu"
+- Only repeat what is explicitly written
+
+Context:
+{context}
+
+Question:
+{question}
+"""
+
+    try:
+        response = client.chat.completions.create(
+            model=MODEL_NAME,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.1  # 🔥 lower = less hallucination
+        )
+
+        content = response.choices[0].message.content.strip()
+
+        return {
+            "answer": content,
+            "tokens_used": response.usage.total_tokens,
+            "model": MODEL_NAME
+        }
+
+    except Exception as e:
+        return {
+            "answer": f"Error: {str(e)}",
+            "tokens_used": 0,
+            "model": MODEL_NAME
+        }
