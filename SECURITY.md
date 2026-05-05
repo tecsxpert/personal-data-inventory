@@ -36,6 +36,19 @@
 *   **Damage Potential:** Medium - exposure of PII to anyone with access to logs.
 *   **Mitigation Plan:** Implement a logging filter to mask PII or disable logging of request bodies in production.
 
+## 3. Security Test Logs
+*   **Week 1 (Day 5):**
+    *   **Empty Input:** PASSED
+    *   **SQL Injection Patterns:** PASSED
+    *   **Prompt Injection Detection:** PASSED
+    *   **HTML Sanitization:** PASSED
+*   **Week 2 (Day 7 - Baseline Scan):**
+    *   **Missing Security Headers:** Identified (Planned for Day 8)
+    *   **Information Exposure:** Minimal (Stack traces suppressed)
+    *   **Input Validation:** Robust on AI endpoints
+*   **Week 2 (Day 10):** [Pending]
+*   **Final Sign-off (Day 15):** [Pending]
+
 ### 2.3 JWT Token Theft (XSS/Session Hijacking)
 *   **Attack Vector:** Stealing the JWT from local storage via a Cross-Site Scripting (XSS) attack.
 *   **Damage Potential:** High - full account takeover.
