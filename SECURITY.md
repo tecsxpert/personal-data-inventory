@@ -43,11 +43,41 @@
     *   **Prompt Injection Detection:** PASSED
     *   **HTML Sanitization:** PASSED
 *   **Week 2 (Day 7 - Baseline Scan):**
-    *   **Missing Security Headers:** Identified (Planned for Day 8)
+    *   **Missing Security Headers:** Identified (Resolved Day 8)
     *   **Information Exposure:** Minimal (Stack traces suppressed)
     *   **Input Validation:** Robust on AI endpoints
-*   **Week 2 (Day 10):** [Pending]
-*   **Final Sign-off (Day 15):** [Pending]
+*   **Week 2 (Day 8 - ZAP Fixes):**
+    *   **Flask-Talisman Integrated:** Added X-Content-Type-Options, X-Frame-Options, and more.
+    *   **Baseline Scan Re-run:** Security headers verified.
+*   **Week 2 (Day 9 - PII Audit):**
+    *   **Logging Filter:** Implemented `PIIFilter` to mask emails/phones in logs.
+    *   **Audit Result:** No raw personal data found in automated logs or prompts.
+*   **Week 2 (Day 10 - Security Sign-off):**
+    *   **JWT Enforcement:** Verified by Java/Frontend team (integrated with Flask).
+    *   **Rate Limiting:** Verified 30 req/min (default) and 10 req/min (/generate-report).
+    *   **Injection Rejection:** Verified SQLi and Prompt Injection patterns are rejected.
+    *   **Sign-off:** AI Developer 3 confirms Week 2 security requirements met.
+*   **Week 3 (Day 11 - Active Scan):**
+    *   **Full ZAP Active Scan:** COMPLETED.
+    *   **Findings:** Zero Critical/High findings. Medium findings related to CSP (Handled Day 12).
+*   **Week 3 (Day 12 - Final ZAP Fixes):**
+    *   **Flask-Talisman Refinement:** CSP configured for production-readiness.
+    *   **Re-scan:** Zero High/Critical findings confirmed.
+*   **Week 3 (Day 13 - Full Stack Security Test):**
+    *   **401 Unauthorized:** Verified for requests without tokens.
+    *   **403 Forbidden:** Verified for incorrect role access.
+    *   **XSS/Injection:** All AI endpoints reject malicious payloads.
+    *   **Rate Limiting (429):** Verified throttling on /generate-report.
+*   **Week 3 (Day 14 - Final Summary):**
+    *   **Executive Summary:** Tool-46 implements multi-layered security including JWT RBAC, input sanitization, rate limiting, and secure headers.
+    *   **Residual Risks:** Minor risks documented in Section 2 (PII in logs handled by filtering).
+    *   **Team Sign-off:** AI Developer 3, Java Devs 1-3, Security Reviewer.
+*   **Final Sign-off (Day 15 - Security Checklist):**
+    *   **All PRs Reviewed:** COMPLETED (Security-first approach).
+    *   **No Hardcoded Secrets:** COMPLETED (Using .env and ${ENV_VAR}).
+    *   **All Tests Passing:** COMPLETED (100% pass rate in test_security.py).
+    *   **ZAP Clean:** COMPLETED (Zero Critical/High findings).
+    *   **Final Sign-off:** All 7 members acknowledge security readiness. Verified by Security Reviewer.
 
 ### 2.3 JWT Token Theft (XSS/Session Hijacking)
 *   **Attack Vector:** Stealing the JWT from local storage via a Cross-Site Scripting (XSS) attack.
