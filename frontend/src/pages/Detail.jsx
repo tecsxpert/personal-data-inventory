@@ -45,89 +45,93 @@ export default function Detail() {
 
   if (!data) return <p>Loading...</p>;
 
-  return (
-    <div className="p-6 max-w-xl mx-auto">
-      {/* Back Button */}
-      <button
-        onClick={() => navigate(-1)}
-        className="mb-4 bg-gray-300 px-3 py-1 rounded hover:bg-gray-400"
-      >
-        ← Back
-      </button>
+return (
+  <div className="p-6 max-w-2xl mx-auto">
+    
+    {/* Back */}
+    <button
+      onClick={() => navigate(-1)}
+      className="mb-5 px-4 py-2 rounded text-sm font-medium bg-gray-300 hover:bg-gray-400 text-black"
+    >
+      ← Back
+    </button>
 
-      <h2 className="text-2xl font-bold mb-4">Detail Page</h2>
+    <h2 className="text-2xl font-semibold mb-5">Item Details</h2>
 
-      {/* Detail Card */}
-      <div className="border rounded p-4 space-y-2 shadow">
-        <p><b>ID:</b> {data.id}</p>
-        <p><b>Name:</b> {data.name}</p>
-        <p><b>Description:</b> {data.description}</p>
-        <p><b>Category:</b> {data.category}</p>
+    {/* Details Card */}
+    <div className="border rounded-lg p-5 shadow-sm space-y-3 bg-white">
+      <p><span className="font-medium">ID:</span> {data.id}</p>
+      <p><span className="font-medium">Name:</span> {data.name}</p>
+      <p><span className="font-medium">Description:</span> {data.description}</p>
+      <p><span className="font-medium">Category:</span> {data.category}</p>
 
-        <p>
-          <b>Status:</b>{" "}
-          <span
-            className={`px-2 py-1 rounded text-white ${
-              data.status === "ACTIVE"
-                ? "bg-green-500"
-                : data.status === "INACTIVE"
-                ? "bg-red-500"
-                : "bg-gray-500"
-            }`}
-          >
-            {data.status}
-          </span>
-        </p>
-
-        <div className="mt-3 flex gap-2">
-          <button
-            onClick={() => navigate(`/edit/${data.id}`)}
-            className="bg-yellow-400 px-3 py-1 rounded hover:bg-yellow-500"
-          >
-            Edit
-          </button>
-
-          <button
-            onClick={() => alert("Delete clicked")}
-            className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-          >
-            Delete
-          </button>
-        </div>
-      </div>
-
-      {/* AI Section */}
-      <div className="mt-6 border rounded p-4 shadow">
-        <h3 className="text-lg font-semibold mb-2">AI Analysis</h3>
-
-        <button
-          onClick={handleAskAI}
-          className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+      <p>
+        <span className="font-medium">Status:</span>{" "}
+        <span
+          className={`ml-2 px-2 py-1 rounded text-xs font-medium text-white ${
+            data.status === "ACTIVE"
+              ? "bg-green-500"
+              : data.status === "INACTIVE"
+              ? "bg-red-500"
+              : "bg-gray-500"
+          }`}
         >
-          Ask AI
+          {data.status}
+        </span>
+      </p>
+
+      {/* Actions */}
+      <div className="flex flex-wrap gap-3 mt-4">
+        <button
+          onClick={() => navigate(`/edit/${data.id}`)}
+          className="px-4 py-2 rounded text-sm font-medium bg-yellow-400 hover:bg-yellow-500 text-black"
+        >
+          Edit
         </button>
 
-        {aiLoading ? (
-          <p className="mt-2 text-blue-500">Loading AI response...</p>
-        ) : aiResponse ? (
-          <div className="mt-3 space-y-2">
-            <p><b>Summary:</b> {aiResponse.summary}</p>
-            <p><b>Risk:</b> {aiResponse.risk}</p>
-            <p><b>Recommendation:</b> {aiResponse.recommendation}</p>
-
-            <button
-              onClick={handleAskAI}
-              className="bg-gray-400 text-white px-2 py-1 rounded hover:bg-gray-500 mt-2"
-            >
-            Retry
-            </button>
-          </div>
-        ) : (
-          <p className="mt-2 text-gray-600">
-            AI insights will appear here...
-          </p>
-        )}
+        <button
+          onClick={() => alert("Delete clicked")}
+          className="px-4 py-2 rounded text-sm font-medium bg-red-500 hover:bg-red-600 text-white"
+        >
+          Delete
+        </button>
       </div>
     </div>
-  );
+
+    {/* AI Section */}
+    <div className="mt-6 border rounded-lg p-5 shadow-sm bg-white">
+      <h3 className="text-lg font-semibold mb-3">AI Analysis</h3>
+
+      <button
+        onClick={handleAskAI}
+        className="px-4 py-2 rounded text-sm font-medium bg-blue-500 hover:bg-blue-600 text-white"
+      >
+        Ask AI
+      </button>
+
+      {aiLoading ? (
+        <p className="mt-3 text-blue-500 text-sm">
+          Generating AI insights...
+        </p>
+      ) : aiResponse ? (
+        <div className="mt-4 space-y-2 text-sm">
+          <p><span className="font-medium">Summary:</span> {aiResponse.summary}</p>
+          <p><span className="font-medium">Risk:</span> {aiResponse.risk}</p>
+          <p><span className="font-medium">Recommendation:</span> {aiResponse.recommendation}</p>
+
+          <button
+            onClick={handleAskAI}
+            className="mt-2 px-3 py-1 rounded text-sm font-medium bg-gray-400 hover:bg-gray-500 text-white"
+          >
+            Retry
+          </button>
+        </div>
+      ) : (
+        <p className="mt-3 text-gray-500 text-sm">
+          AI insights will appear here...
+        </p>
+      )}
+    </div>
+  </div>
+);
 }

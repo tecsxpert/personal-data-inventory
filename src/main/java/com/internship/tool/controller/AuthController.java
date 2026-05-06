@@ -21,9 +21,15 @@ public class AuthController {
         String username = request.get("username");
         String password = request.get("password");
 
-        // simple check (for now)
+        // 🔥 Admin login
         if ("admin".equals(username) && "admin123".equals(password)) {
-            String token = jwtUtil.generateToken(username);
+            String token = jwtUtil.generateToken(username, "ADMIN");
+            return Map.of("token", token);
+        }
+
+        // 🔥 User login
+        if ("user".equals(username) && "user123".equals(password)) {
+            String token = jwtUtil.generateToken(username, "USER");
             return Map.of("token", token);
         }
 

@@ -32,7 +32,10 @@ build/
 
 ### VS Code ###
 .vscode/
-
 .venv/
 venv/
 __pycache__/
+
+# Logs
+logs/
+*.log

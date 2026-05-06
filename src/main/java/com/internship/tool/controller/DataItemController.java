@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -21,45 +22,52 @@ public class DataItemController {
         this.service = service;
     }
 
-    // 🔹 CREATE
+    // 🔹 CREATE (ADMIN + USER)
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PostMapping
     public ResponseEntity<DataItemResponse> create(@Valid @RequestBody DataItemRequest request) {
         return ResponseEntity.ok(service.create(request));
     }
 
-    // 🔹 GET ALL
+    // 🔹 GET ALL (ADMIN + USER)
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping
     public ResponseEntity<List<DataItemResponse>> getAll() {
         return ResponseEntity.ok(service.getAll());
     }
 
-    // 🔹 GET BY ID
+    // 🔹 GET BY ID (ADMIN + USER)
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("/{id}")
     public ResponseEntity<DataItemResponse> getById(@PathVariable Long id) {
         return ResponseEntity.ok(service.getById(id));
     }
 
-    // 🔹 UPDATE
+    // 🔹 UPDATE (ADMIN + USER)
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PutMapping("/{id}")
     public ResponseEntity<DataItemResponse> update(@PathVariable Long id,
                                                    @Valid @RequestBody DataItemRequest request) {
         return ResponseEntity.ok(service.update(id, request));
     }
 
-    // 🔹 DELETE
+    // 🔹 DELETE (ADMIN ONLY 🔥)
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.ok("Deleted successfully");
     }
 
-    // 🔹 PAGINATION
+    // 🔹 PAGINATION (ADMIN + USER)
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("/page")
     public ResponseEntity<Page<DataItemResponse>> getAllWithPagination(Pageable pageable) {
         return ResponseEntity.ok(service.getAllWithPagination(pageable));
     }
 
-    // 🔹 SEARCH
+    // 🔹 SEARCH (ADMIN + USER)
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @GetMapping("/search")
     public ResponseEntity<List<DataItemResponse>> search(@RequestParam String name) {
         return ResponseEntity.ok(service.searchByName(name));

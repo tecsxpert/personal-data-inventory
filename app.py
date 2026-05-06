@@ -3,9 +3,14 @@ from flask import Flask, request, jsonify
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_talisman import Talisman
-from services.groq_client import GroqClient
 import re
 import logging
+
+# 🔹 Import all route blueprints
+from routes.categorise import categorise_bp
+from routes.query import query_bp
+from routes.health import health_bp
+from routes.report import report_bp   # Day 11 async
 
 app = Flask(__name__)
 
@@ -73,9 +78,25 @@ def validate_input():
                     return jsonify({"error": "Potential prompt injection detected"}), 400
                 data[key] = sanitized
 
-@app.route('/health')
-def health():
-    return jsonify({"status": "healthy"}), 200
+# 🔹 Register all endpoints
+app.register_blueprint(categorise_bp)
+app.register_blueprint(query_bp)
+app.register_blueprint(health_bp)
+app.register_blueprint(report_bp)   # includes /generate-report and /job/<id>
+
+# 🔹 Optional root route (just to avoid 404 on /)
+@app.route("/")
+def home():
+    return {
+        "message": "AI Backend Running 🚀",
+        "endpoints": [
+            "/categorise",
+            "/query",
+            "/health",
+            "/generate-report",
+            "/job/<job_id>"
+        ]
+    }
 
 @app.route('/describe', methods=['POST'])
 def describe():
@@ -83,11 +104,6 @@ def describe():
     data = request.get_json()
     return jsonify({"message": "Description generated", "input": data.get('text')}), 200
 
-@app.route('/generate-report', methods=['POST'])
-@limiter.limit("10 per minute")
-def generate_report():
-    # Implementation placeholder for Day 4
-    return jsonify({"message": "Report generation started"}), 200
-
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
+
