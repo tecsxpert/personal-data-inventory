@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
+import {useAuth} from "../context/AuthContext";
 
 const Dashboard = () => {
   const [data, setData] = useState([]);
@@ -14,46 +15,34 @@ const Dashboard = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [error, setError] = useState(false);
+  const { logout } = useAuth();
 
   const navigate = useNavigate();
 
 useEffect(() => {
   setLoading(true);
 
-  if (debouncedSearch.trim() !== "") {
-    console.log("Searching:", debouncedSearch);
-  }
-
   api
-    .get(`/api/data-items?page=${page}&size=5&sort=${sortBy},${order}&search=${debouncedSearch}&status=${status}`)
+    .get(`/api/data-items/page?page=${page}&size=5&sort=${sortBy},${order}`)
     .then((res) => {
-  if (Array.isArray(res.data)) {
-    setData(res.data);
-  } else if (Array.isArray(res.data.content)) {
-    setData(res.data.content);
-  } else {
-    setData([]); // fallback safe
-  }
+      console.log("API response:", res.data);
 
-  setError(false);
-  setLoading(false);
-})
-    .catch(() => {
-  console.error("API not working, using dummy data");
-  setError(true);
+      if (res.data && Array.isArray(res.data.content)) {
+        setData(res.data.content); // correct for Page response
+      } else {
+        setData([]);
+      }
 
-  setData([
-    {
-      id: 1,
-      name: "Google",
-      description: "Search engine",
-      category: "Technology",
-    },
-  ]);
+      setError(false);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error("API error:", err);
+      setError(true);
+      setLoading(false);
+    });
 
-  setLoading(false);
-});
-}, [page, sortBy, order, debouncedSearch, status]);
+}, [page, sortBy, order]);
 
   if (loading) {
   return (
@@ -112,9 +101,22 @@ const handleExport = () => {
   document.body.removeChild(link);
 };
 
+
+
 return (
   <div className="p-6 max-w-6xl mx-auto">
-    <h1 className="text-2xl font-semibold mb-6">Dashboard</h1>
+    <div className="flex justify-between items-center mb-6">
+  <h1 className="text-2xl font-semibold">Dashboard</h1>
+
+  <button
+    onClick={logout}
+    className="px-4 py-2 rounded text-white text-sm font-medium bg-red-500 hover:bg-red-600"
+  >
+    Logout
+  </button>
+</div>
+    
+
 
     {/* Filters */}
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -232,17 +234,40 @@ return (
                 <td className="p-3 font-medium">{item.name}</td>
                 <td className="p-3">{item.description}</td>
                 <td className="p-3">{item.category}</td>
-                <td className="p-3">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigate(`/edit/${item.id}`);
-                    }}
-                    className="px-3 py-1 rounded text-sm font-medium bg-yellow-400 hover:bg-yellow-500 text-black"
-                  >
-                    Edit
-                  </button>
-                </td>
+                <td className="p-3 space-x-2">
+  {/* EDIT */}
+  <button
+    onClick={(e) => {
+      e.stopPropagation();
+      navigate(`/edit/${item.id}`, { state: item }); // 🔥 FIX
+    }}
+    className="px-3 py-1 rounded text-sm font-medium bg-yellow-400 hover:bg-yellow-500 text-black"
+  >
+    Edit
+  </button>
+
+  {/* DELETE */}
+  <button
+    onClick={(e) => {
+      e.stopPropagation();
+
+      if (!window.confirm("Delete this item?")) return;
+
+      api
+        .delete(`/api/data-items/${item.id}`)
+        .then(() => {
+          setData((prev) => prev.filter((i) => i.id !== item.id));
+        })
+        .catch((err) => {
+          console.error(err);
+          alert("Delete failed ❌");
+        });
+    }}
+    className="px-3 py-1 rounded text-sm font-medium bg-red-500 hover:bg-red-600 text-white"
+  >
+    Delete
+  </button>
+</td>
               </tr>
             ))
           )}

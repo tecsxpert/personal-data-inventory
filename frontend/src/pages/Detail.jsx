@@ -29,20 +29,29 @@ export default function Detail() {
       });
   }, [id]);
 
-  const handleAskAI = () => {
-    setAiLoading(true);
+ const handleAskAI = () => {
+  setAiLoading(true);
 
-    setTimeout(() => {
-      setAiResponse({
-        summary: "This is a sample AI-generated insight.",
-        risk: "Low risk",
-        recommendation: "No immediate action required.",
-      });
-
+  api
+    .get(`/api/data-items/${id}`)
+    .then((res) => {
+      if (res.data.ai) {
+        setAiResponse(res.data.ai);
+      } else {
+        setAiResponse({
+          summary: "AI data not available",
+          risk: "N/A",
+          recommendation: "Try again later",
+        });
+      }
       setAiLoading(false);
-    }, 1500);
-  };
-
+    })
+    .catch((err) => {
+      console.error(err);
+      setAiLoading(false);
+      alert("AI failed");
+    });
+};
   if (!data) return <p>Loading...</p>;
 
 return (
@@ -83,18 +92,31 @@ return (
       {/* Actions */}
       <div className="flex flex-wrap gap-3 mt-4">
         <button
-          onClick={() => navigate(`/edit/${data.id}`)}
+          onClick={() =>navigate(`/edit/${data.id}`, { state: data })}
           className="px-4 py-2 rounded text-sm font-medium bg-yellow-400 hover:bg-yellow-500 text-black"
         >
           Edit
         </button>
 
         <button
-          onClick={() => alert("Delete clicked")}
-          className="px-4 py-2 rounded text-sm font-medium bg-red-500 hover:bg-red-600 text-white"
-        >
-          Delete
-        </button>
+  onClick={() => {
+    if (!window.confirm("Are you sure you want to delete this item?")) return;
+
+    api
+      .delete(`/api/data-items/${data.id}`)
+      .then(() => {
+        alert("Deleted successfully ✅");
+        navigate("/"); // go back to dashboard
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Delete failed ❌");
+      });
+  }}
+  className="px-4 py-2 rounded text-sm font-medium bg-red-500 hover:bg-red-600 text-white"
+>
+  Delete
+</button>
       </div>
     </div>
 
